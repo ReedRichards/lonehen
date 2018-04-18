@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import HomeCarousel from '../../Containers/HomeCarousel/HomeCarousel.js';
-import HomeNav from '../HomeNav/HomeNav.js';
 
 import { Container, Row, Col } from 'reactstrap';
 import { Button } from 'reactstrap';
