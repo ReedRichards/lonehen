@@ -12,6 +12,7 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem } from 'reactstrap';
+import {Link} from 'react-router-dom';
 export default class HomeNav extends React.Component {
     constructor(props) {
         super(props);
@@ -37,19 +38,19 @@ export default class HomeNav extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/">Home</NavLink>
+               <Link to="/"> <NavLink href="/">Home</NavLink></Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/#about">About</NavLink>
+             <Link to="/#about"><NavLink href="/#about">About</NavLink></Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/#press">Press</NavLink>
+                <Link to="/#press"><NavLink href="/#press">Press</NavLink></Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/events">Events</NavLink>
+                <Link to="/events"><NavLink href="/events">Events</NavLink></Link>
               </NavItem>
               <NavItem>
-                <NavLink href="/makers-notes/">Maker's Notes</NavLink>
+                <Link to="/makers-notes"><NavLink href="/makers-notes/">Maker's Notes</NavLink></Link>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -69,7 +70,7 @@ export default class HomeNav extends React.Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
-                <NavLink href="/blog">Blog</NavLink>
+                <Link to="/blog"><NavLink href="/blog">Blog</NavLink></Link>
               </NavItem>
             </Nav>
           </Collapse>
