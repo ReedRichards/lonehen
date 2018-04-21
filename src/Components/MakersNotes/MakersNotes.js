@@ -8,7 +8,7 @@ class MakersNotes extends Component {
             <Container className="pad-60">
               <Row >
                 <Col sm="12" md="4">
-                  <img className="img-fluid" src="/static/img/BubblySquare.png"/>
+                  <img className="img-fluid" src="/static/img/BubblySquare.png" alt=""/>
                 </Col>
                 <Col sm="12" md="8">
                   <h3>Bubbly Wine</h3>

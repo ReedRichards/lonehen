@@ -1,7 +1,4 @@
-
 import React, { Component } from 'react';
-import HomePage from '../HomePage/HomePage.js';
-import {Route} from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
@@ -24,28 +21,31 @@ class Login extends Component {
         this.setState({password: event.target.value});
     }
 
-    handleSubmit(event) {
+    handleSubmit() {
         fetch('http://127.0.0.1:8000/api/users/login/', {
-            method: 'post',
-            headers: {
+            method: 'POST',
+            headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic'+btoa(this.state.username+':'+this.state.password)
-            },
+                'Authorization': 'Basic '+btoa(this.state.username + ':' + this.state.password)
+            }),
             body: JSON.stringify({
             })
         })
-            .then(function(response) {
-                console.log(response.json()) ;
-            }).then(function(body) {
-                console.log(body);
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+                return responseJson;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error;
             });
     }
 
     render() {
         return (
-           
-            <form onSubmit={this.handleSubmit}>
+            <div >
               <label>
                 UserName:
                 <input type="text" value={this.state.username} onChange={this.handleChange} />
@@ -54,8 +54,8 @@ class Login extends Component {
                 Password:
                 <input type="password" value={this.state.password} onChange={this.handleChangePass} />
               </label>
-              <input type="submit" value="Submit" />
-            </form>
+              <input type="submit" onClick={this.handleSubmit} value="Submit" />
+            </div>
         );
     }
    }

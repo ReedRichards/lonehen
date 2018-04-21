@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import HomeNav from '../HomeNav/HomeNav.js';
 
 class Events extends Component {
     render() {

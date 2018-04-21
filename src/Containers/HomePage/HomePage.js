@@ -51,19 +51,19 @@ class HomePage extends Component {
               </Col>
                 <Col sm="12" md="4">
                   <Col sm="12" className="d-flex justify-content-center mb-5" >
-                  <img src="/static/img/wine-lover.jpeg"/>
+                  <img src="/static/img/wine-lover.jpeg" alt=""/>
                   </Col>
                   <p >Lone Hen Winery is located in College Station and is owned by Steve and Vicki Kirkpatrick. Their first vines of Blanc du Bois and Champanel were planted in 2004 on their ten acre lot where they live. They continued by planting Cabernet Sauvignon in 2006 and will be replanting with Lenoir soon. They currently have 1.5 acres of vines and will have four acres of vineyard when completed. In 2009, Lone Hen Winery officially</p>
                 </Col>
                 <Col sm="12" md="4">
                   <Col sm="12" className="d-flex justify-content-center mb-5" >
-                  <img src="/static/img/finger-lakes-wine.jpeg"/>
+                  <img src="/static/img/finger-lakes-wine.jpeg" alt=""/>
                   </Col>
                   <p >The annual Finger Lakes International Wine Competition recently took place in Rochester, New York. Sweet!, Juicy!, and Bubbly! each received BRONZE MEDALS! 3824 wines from over 22 countries were blind judged by judges coming from all over the world including Australia, France Spain and Argentina. 525 medals were awarded.</p>
                 </Col>
                 <Col sm="12" md="4">
                   <Col sm="12" className="d-flex justify-content-center mb-5" >
-                  <img src="/static/img/finger-lakes-wine.jpeg"/>
+                  <img src="/static/img/finger-lakes-wine.jpeg" alt=""/>
                   </Col>
                   <p >The annual Finger Lakes International Wine Competition recently took place in Rochester, New York. Sweet!, Juicy!, and Bubbly! each received BRONZE MEDALS! 3824 wines from over 22 countries were blind judged by judges coming from all over the world including Australia, France Spain and Argentina. 525 medals were awarded.</p>
                 </Col>

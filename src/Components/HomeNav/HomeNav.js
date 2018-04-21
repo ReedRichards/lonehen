@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
 import {
     Collapse,
     Navbar,
@@ -32,7 +31,7 @@ export default class HomeNav extends React.Component {
       <div>
         <Navbar id="homeNav" dark expand="md">
           <NavbarBrand href="/">
-            <img id="logoImage" src="/static/img/LoneHenLogo.png"/>
+            <img id="logoImage" src="/static/img/LoneHenLogo.png" alt=""/>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
