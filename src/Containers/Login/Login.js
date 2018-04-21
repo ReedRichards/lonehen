@@ -6,7 +6,11 @@ import {Route} from 'react-router-dom';
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {username: '',password:''};
+        this.state = {
+            username: '',
+            password:'',
+            isLoggedIn:false
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
@@ -21,11 +25,26 @@ class Login extends Component {
     }
 
     handleSubmit(event) {
-        return <Route path="/test" render={()=><HomePage />}/>;
+        fetch('http://127.0.0.1:8000/api/users/login/', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic'+btoa(this.state.username+':'+this.state.password)
+            },
+            body: JSON.stringify({
+            })
+        })
+            .then(function(response) {
+                console.log(response.json()) ;
+            }).then(function(body) {
+                console.log(body);
+            });
     }
 
     render() {
         return (
+           
             <form onSubmit={this.handleSubmit}>
               <label>
                 UserName:
