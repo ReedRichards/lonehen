@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import LoginForm from '../../Components/LoginForm/LoginForm.js';
+import Admin from '../Admin/Admin.js';
 
 class Login extends Component {
     constructor(props) {
@@ -6,7 +8,7 @@ class Login extends Component {
         this.state = {
             username: '',
             password:'',
-            isLoggedIn:false
+            isLoggedIn:true
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -15,6 +17,7 @@ class Login extends Component {
     }
 
     handleChange(event) {
+        
         this.setState({username: event.target.value});
     }
     handleChangePass(event) {
@@ -22,7 +25,7 @@ class Login extends Component {
     }
 
     handleSubmit() {
-        fetch('http://127.0.0.1:8000/api/users/login/', {
+         fetch('http://127.0.0.1:8000/api/users/login/', {
             method: 'POST',
             headers: new Headers({
                 'Accept': 'application/json',
@@ -34,7 +37,9 @@ class Login extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                if (responseJson.details === "Valid"){
+                    this.setState({isLoggedIn:true});
+                }
                 return responseJson;
             })
             .catch((error) => {
@@ -44,17 +49,24 @@ class Login extends Component {
     }
 
     render() {
+        let admin =null;
+
+        let login = <LoginForm
+        username={this.state.username}
+        password={this.state.password}
+        onChangeUser={this.handleChange}
+        onChangePass={this.handleChangePass}
+        onClick={this.handleSubmit}/>;
+        
+        if (this.state.isLoggedIn){
+            admin = <Admin username={this.state.username} password ={this.state.password}/>;
+            login=null;
+        }
+
         return (
             <div >
-              <label>
-                UserName:
-                <input type="text" value={this.state.username} onChange={this.handleChange} />
-              </label>
-              <label>
-                Password:
-                <input type="password" value={this.state.password} onChange={this.handleChangePass} />
-              </label>
-              <input type="submit" onClick={this.handleSubmit} value="Submit" />
+              {admin}
+              {login}
             </div>
         );
     }

@@ -10,6 +10,7 @@ import Events from './Components/Events/Events.js';
 import HomeNav from './Components/HomeNav/HomeNav.js';
 import MakersNotes from './Components/MakersNotes/MakersNotes.js';
 import Blog from './Components/Blog/Blog.js';
+import Admin from './Containers/Admin/Admin.js';
 
 
 ReactDOM.render((
