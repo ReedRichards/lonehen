@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import LoginForm from '../../Components/LoginForm/LoginForm.js';
+import LoneAPi from '../../loneApi.js';
 
+const API= new LoneAPi();
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -22,38 +24,18 @@ class Login extends Component {
         this.setState({password: event.target.value});
     }
 
-    handleSubmit() {
-         fetch('http://127.0.0.1:8000/api/token-auth/', {
-            method: 'POST',
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic '+btoa(this.state.username + ':' + this.state.password)
-            }),
-            body: JSON.stringify({
-                username:this.state.username,
-                password:this.state.password
-            })
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                if (responseJson.detail){
-                    console.log(responseJson.detail);
-                }
-                if (responseJson.token){
-                    document.cookie = "token=" + responseJson.token+"; expires=0; path=/";
-                    this.props.history.push('/admin');
-                }
-                return responseJson;
-            })
-            .catch((error) => {
-                console.log(error);
-                return error;
-            });
+    getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
     }
+    handleSubmit() {
+
+        let test =  API.getToken(this.state.username,this.state.password);
+        console.log(test);
+           }
 
     render() {
-
         return (
             <div >
               <LoginForm

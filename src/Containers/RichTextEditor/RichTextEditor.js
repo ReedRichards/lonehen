@@ -1,6 +1,6 @@
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
-
+import Html from 'slate-html-serializer';
 import React from 'react';
 import initialValue from './value.json';
 import { isKeyHotkey } from 'is-hotkey';
@@ -23,8 +23,85 @@ const DEFAULT_NODE = 'paragraph';
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
 const isUnderlinedHotkey = isKeyHotkey('mod+u');
-const isCodeHotkey = isKeyHotkey('mod+`')
+const isCodeHotkey = isKeyHotkey('mod+`');
 
+const BLOCK_TAGS = {
+  blockquote: 'block-quote',
+    p: 'paragraph',
+    li:'list-item',
+    ol:'numbered-list',
+    ul:'bulleted-list'
+}
+// Add a dictionary of mark tags.
+const MARK_TAGS = {
+    em: 'italic',
+    strong: 'bold',
+    u: 'underline',
+    pre: 'code'
+}
+const rules = [
+  {
+    deserialize(el, next) {
+      const type = BLOCK_TAGS[el.tagName.toLowerCase()]
+      if (type) {
+        return {
+          object: 'block',
+          type: type,
+          nodes: next(el.childNodes)
+        };
+      }
+    },
+    serialize(obj, children) {
+      if (obj.object == 'block') {
+        switch (obj.type) {
+          case 'paragraph':
+            return <p>{children}</p>;
+          case 'block-quote':
+            return <blockquote>{children}</blockquote>;
+        case 'bulleted-list':
+            return <ul>{children}</ul>;
+        case 'numbered-list':
+            return <ol>{children}</ol>;
+        case 'list-item':
+            return <li>{children}</li>;
+        }
+      }
+    },
+  },
+  // Add a new rule that handles marks...
+  {
+    deserialize(el, next) {
+        const type = MARK_TAGS[el.tagName.toLowerCase()];
+      if (type) {
+        return {
+          object: 'mark',
+          type: type,
+          nodes: next(el.childNodes),
+        };
+      }
+    },
+    serialize(obj, children) {
+      if (obj.object == 'mark') {
+        switch (obj.type) {
+          case 'bold':
+            return <strong>{children}</strong>;
+          case 'italic':
+            return <em>{children}</em>;
+          case 'underline':
+            return <u>{children}</u>;
+        case 'code':
+            return (
+                <pre>
+                  <code>{children}</code>
+                </pre>
+            );
+
+        }
+      }
+    },
+  },
+]
+const html = new Html({ rules });
 /**
  * The rich text example.
  *
@@ -40,6 +117,7 @@ class RichTextExample extends React.Component {
 
   state = {
     value: Value.fromJSON(initialValue),
+      posts:this.props.posts
   }
 
   /**
@@ -169,10 +247,11 @@ class RichTextExample extends React.Component {
 
       this.onChange(change);
   }
-    /*
-      add bg to active
-     */
 
+    postContent= (value,post)=>{
+        const string = html.serialize(value);
+    }
+  
 
   /**
    * Render.
@@ -186,7 +265,7 @@ class RichTextExample extends React.Component {
         {this.renderToolbar()}
         {this.renderEditor()}
         <Button outline color="primary">Cancel</Button>
-        <Button color="primary">Submit</Button>
+        <Button color="primary" onClick={()=>this.postContent(this.state.value,this.state.posts)}>Submit</Button>
       </div>
     )
   }

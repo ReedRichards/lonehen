@@ -13,12 +13,14 @@ class Admin extends Component{
         this.state={
             username:props.username,
             password:props.password,
-            activeTab: '1'
+            activeTab: '1',
+            token:""
         };
     }
     componentDidMount(){
         const cookie = this.getCookie("token");
         if (cookie){
+            this.setState({token:cookie});
             this.aboutDetail();
         }
 
@@ -101,7 +103,7 @@ class Admin extends Component{
                                 <label>Title:</label>
                                 <input className="form-control"/>
                               </div>
-                              <RichTextEditor/>
+                              <RichTextEditor posts="blog" token={this.state.token}/>
                             </Col>
                           </Row>
                         </TabPane>
