@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import AdminNav from '../../Components/AdminNav/AdminNav.js';
 import { Container, Row, Col } from 'reactstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText} from 'reactstrap';
-import RichTextEditor from '../../Components/RichTextEditor/RichTextEditor.js';
+import RichTextEditor from '../RichTextEditor/RichTextEditor.js';
 import classnames from 'classnames';
 
 
@@ -97,6 +97,43 @@ class Admin extends Component{
                         <TabPane tabId="1">
                           <Row>
                             <Col sm="12">
+                              <div className="form-group">
+                                <label>Title:</label>
+                                <input className="form-control"/>
+                              </div>
+                              <RichTextEditor/>
+                            </Col>
+                          </Row>
+                        </TabPane>
+                        <TabPane tabId="2">
+                          <Row>
+                            <Col sm="12">
+                              <div className="form-group">
+                                <label>Upoload an Image:</label>
+                                <input className="form-control" type="file"/>
+                              </div>
+                              <RichTextEditor/>
+                            </Col>
+                          </Row>
+                        </TabPane>
+                        <TabPane tabId="3">
+                          <Row>
+                            <Col sm="12">
+                              <div className="form-group">
+                                <label>Title:</label>
+                                <input className="form-control"/>
+                              </div>
+                              <RichTextEditor/>
+                            </Col>
+                          </Row>
+                        </TabPane>
+                        <TabPane tabId="4">
+                          <Row>
+                            <Col sm="12">
+                              <div className="form-group">
+                                <label>Upoload an Image:</label>
+                                <input className="form-control" type="file"/>
+                              </div>
                               <RichTextEditor/>
                             </Col>
                           </Row>

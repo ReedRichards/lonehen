@@ -4,6 +4,7 @@ import { Value } from 'slate';
 import React from 'react';
 import initialValue from './value.json';
 import { isKeyHotkey } from 'is-hotkey';
+import { Container, Row, Col,Button } from 'reactstrap';
 
 /**
  * Define the default node type.
@@ -168,6 +169,10 @@ class RichTextExample extends React.Component {
 
       this.onChange(change);
   }
+    /*
+      add bg to active
+     */
+
 
   /**
    * Render.
@@ -180,6 +185,8 @@ class RichTextExample extends React.Component {
       <div>
         {this.renderToolbar()}
         {this.renderEditor()}
+        <Button outline color="primary">Cancel</Button>
+        <Button color="primary">Submit</Button>
       </div>
     )
   }
@@ -192,17 +199,18 @@ class RichTextExample extends React.Component {
 
   renderToolbar = () => {
     return (
-      <div className="menu toolbar-menu">
-        {this.renderMarkButton('bold', 'format_bold')}
-        {this.renderMarkButton('italic', 'format_italic')}
-        {this.renderMarkButton('underlined', 'format_underlined')}
-        {this.renderMarkButton('code', 'code')}
-        {this.renderBlockButton('heading-one', 'looks_one')}
-        {this.renderBlockButton('heading-two', 'looks_two')}
-        {this.renderBlockButton('block-quote', 'format_quote')}
-        {this.renderBlockButton('numbered-list', 'format_list_numbered')}
-        {this.renderBlockButton('bulleted-list', 'format_list_bulleted')}
-      </div>
+        <Row >
+          <Col xs="12" className="d-flex justify-content-around ">
+
+            {this.renderMarkButton('bold', <i className="fas fa-bold"></i>)}
+        {this.renderMarkButton('italic', <i className="fas fa-italic"></i>)}
+        {this.renderMarkButton('underlined', <i className="fas fa-underline"></i>)}
+        {this.renderBlockButton('heading-one', <i className="fas fa-heading"></i>)}
+        {this.renderBlockButton('block-quote', <i className="fas fa-quote-left"></i>)}
+        {this.renderBlockButton('numbered-list', <i className="fas fa-list-ol"></i>)}
+        {this.renderBlockButton('bulleted-list', <i className="fas fa-list-ul"></i>)}
+          </Col>
+        </Row>
     )
   }
 
@@ -216,13 +224,17 @@ class RichTextExample extends React.Component {
 
   renderMarkButton = (type, icon) => {
       const isActive = this.hasMark(type);
+      let bg ="";
+      if (isActive === true){
+          bg ="bg-primary";
+      }
       const onMouseDown = event => this.onClickMark(event, type);
 
     return (
       // eslint-disable-next-line react/jsx-no-bind
-      <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
-        <span className="material-icons">{icon}</span>
-      </span>
+        <Col className={"control " + bg} onMouseDown={onMouseDown} data-active={isActive}>
+        <span >{icon}</span>
+      </Col>
     )
   }
 
@@ -236,13 +248,17 @@ class RichTextExample extends React.Component {
 
   renderBlockButton = (type, icon) => {
       const isActive = this.hasBlock(type);
+      let bg ="";
+      if (isActive === true){
+          bg ="bg-primary";
+      }
       const onMouseDown = event => this.onClickBlock(event, type);
 
     return (
       // eslint-disable-next-line react/jsx-no-bind
-      <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
-        <span className="material-icons">{icon}</span>
-      </span>
+        <Col className={"control " + bg} onMouseDown={onMouseDown} data-active={isActive}>
+        <span >{icon}</span>
+      </Col>
     )
   }
 
@@ -254,7 +270,7 @@ class RichTextExample extends React.Component {
 
   renderEditor = () => {
     return (
-      <div className="editor">
+      <div className="border">
         <Editor
           placeholder="Enter some rich text..."
           value={this.state.value}
