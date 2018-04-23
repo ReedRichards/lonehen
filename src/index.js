@@ -17,6 +17,7 @@ ReactDOM.render((
     <Router >
       <div>
         <Switch >
+          <Route exact path="/admin" component={Admin}/>
           <Route exact path="/login" component={Login}/>
           <Route path="/" component={HomeNav}/>
         </Switch>
