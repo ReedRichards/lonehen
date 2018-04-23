@@ -2,30 +2,8 @@ import React,{Component} from 'react';
 import AdminNav from '../../Components/AdminNav/AdminNav.js';
 import { Container, Row, Col } from 'reactstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText} from 'reactstrap';
+import RichTextEditor from '../../Components/RichTextEditor/RichTextEditor.js';
 import classnames from 'classnames';
-import { Editor } from 'slate-react';
-import { Value } from 'slate';
-
-const initialValue = Value.fromJSON({
-    document: {
-        nodes: [
-            {
-                object: 'block',
-                type: 'paragraph',
-                nodes: [
-                    {
-                        object: 'text',
-                        leaves: [
-                            {
-                                text: 'A line of text in a paragraph.',
-                            },
-                        ],
-                    },
-                ],
-            },
-        ],
-    },
-})
 
 
 class Admin extends Component{
@@ -35,8 +13,7 @@ class Admin extends Component{
         this.state={
             username:props.username,
             password:props.password,
-            activeTab: '1',
-            value:initialValue
+            activeTab: '1'
         };
     }
     componentDidMount(){
@@ -73,9 +50,6 @@ class Admin extends Component{
         );
     }
 
-    editSlate= ({value}) =>{
-        this.setState({value});
-    }
 
     render(){
         return(
@@ -123,7 +97,7 @@ class Admin extends Component{
                         <TabPane tabId="1">
                           <Row>
                             <Col sm="12">
-                              <Editor value={this.state.value} onChange={this.editSlate}/>
+                              <RichTextEditor/>
                             </Col>
                           </Row>
                         </TabPane>
