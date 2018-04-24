@@ -4,18 +4,25 @@ import { Container, Row, Col } from 'reactstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText} from 'reactstrap';
 import RichTextEditor from '../RichTextEditor/RichTextEditor.js';
 import classnames from 'classnames';
+import LoneAPi from '../../loneApi.js';
 
-
+const API = new LoneAPi;
 class Admin extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
         this.state={
-            username:props.username,
-            password:props.password,
             activeTab: '1',
-            token:""
+            token:"",
+            blogTitle:"",
+            blogDate:"",
+            blogTime:""
         };
+        this.handleChange = this.handleChange.bind(this);
+
+    }
+    handleChange(event,key){
+        this.setState({[key]:event.target.value}) ;
     }
     componentDidMount(){
         const cookie = this.getCookie("token");
@@ -50,6 +57,22 @@ class Admin extends Component{
                     return error;
                 })
         );
+    }
+
+    quickAdd= (value,destination)=>{
+        var event = new Date(this.state.blogDate);
+        const isoDate = event.toISOString();
+
+        switch(destination){
+        case "blog":
+            const payload ={
+                post_title:this.state.blogTitle,
+                post_body:value,
+                post_date:isoDate
+            } 
+            API.post(destination,this.state.token,payload);
+        }
+        
     }
 
 
@@ -101,9 +124,25 @@ class Admin extends Component{
                             <Col sm="12">
                               <div className="form-group">
                                 <label>Title:</label>
-                                <input className="form-control"/>
+                                <input
+                                  className="form-control"
+                                  onChange={(event) => this.handleChange(event,"blogTitle")}/>
+                                  <Col md="4">
+                                    <label>Date:</label>
+                                    <input
+                                      className="form-control"
+                                      onChange={(event) => this.handleChange(event,"blogDate")}
+                                      type="date"/>
+                                  </Col>
+                                  <Col md="4">
+                                    <label>Time:</label>
+                                    <input
+                                      className="form-control"
+                                      onChange={(event) => this.handleChange(event,"blogTime")}
+                                           placeholder="13:00"/>
+                                  </Col>
                               </div>
-                              <RichTextEditor posts="blog" token={this.state.token}/>
+                              <RichTextEditor post={this.quickAdd} token={this.state.token}/>
                             </Col>
                           </Row>
                         </TabPane>

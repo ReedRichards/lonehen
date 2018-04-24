@@ -31,11 +31,24 @@ class Login extends Component {
     }
     handleSubmit() {
 
-        let test =  API.getToken(this.state.username,this.state.password);
-        console.log(test);
+        API.getToken(this.state.username,this.state.password)
+            .then(responseJson => {
+                if(responseJson.detail){
+                    console.log(responseJson.detail);
+
+                }
+                if (responseJson.token){
+                    document.cookie = "token=" + responseJson.token+"; expires=0; path=/";
+                    this.props.history.push("/admin");
+                    return responseJson;
+                }
+            });
            }
 
     render() {
+        if(this.getCookie("token")){
+            this.props.history.push("/admin");
+        }
         return (
             <div >
               <LoginForm

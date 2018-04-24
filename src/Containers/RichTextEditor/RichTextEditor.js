@@ -248,8 +248,9 @@ class RichTextExample extends React.Component {
       this.onChange(change);
   }
 
-    postContent= (value,post)=>{
+    postContent (value){
         const string = html.serialize(value);
+        return string;
     }
   
 
@@ -265,7 +266,7 @@ class RichTextExample extends React.Component {
         {this.renderToolbar()}
         {this.renderEditor()}
         <Button outline color="primary">Cancel</Button>
-        <Button color="primary" onClick={()=>this.postContent(this.state.value,this.state.posts)}>Submit</Button>
+        <Button color="primary" onClick={() => this.props.post(this.postContent(this.state.value),"blog")}>Submit</Button>
       </div>
     )
   }

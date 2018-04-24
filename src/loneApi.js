@@ -3,8 +3,8 @@ const baseAPIURL ='http://127.0.0.1:8000/api';
 
 export default class LoneAPi {
 
-    getToken (username,password){
-         fetch(baseAPIURL + '/token-auth/', {
+    async getToken (username,password){
+        let response =await fetch(baseAPIURL + '/token-auth/', {
             method: 'POST',
             headers: new Headers({
                 'Accept': 'application/json',
@@ -16,18 +16,23 @@ export default class LoneAPi {
                 password:password
             })
         })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                if (responseJson.detail){
-                    return responseJson;
-                }
-                if (responseJson.token){
-                    document.cookie = "token=" + responseJson.token+"; expires=0; path=/";
-                    return responseJson;
-                }
-            })
-            .catch((error) => {
-                return error;
-            });
+        let responseJson = await response.json();
+        return responseJson;
     } 
+
+    async post(destination,token,payload){
+        let response =await fetch(baseAPIURL + '/' + destination + '/', {
+            method: 'POST',
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token '+ token
+            }),
+            body: JSON.stringify(payload)
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+       
+    }
 }
