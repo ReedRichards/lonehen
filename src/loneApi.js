@@ -24,7 +24,7 @@ export default class LoneAPi {
         let response =await fetch(baseAPIURL + '/' + destination + '/', {
             method: 'POST',
             headers: new Headers({
-                'Accept': 'application/json',
+                'accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': 'Token '+ token
             }),
@@ -35,9 +35,8 @@ export default class LoneAPi {
         return responseJson;
        
     }
-    async get(destination){
-        let response =await fetch(baseAPIURL + '/' + destination + '/');
-        let responseJson = await response.json();
-        return await responseJson;
+    get(destination){
+        fetch(baseAPIURL + '/' + destination + '/')
+            .then((response)=>response.json());
     }
 }
