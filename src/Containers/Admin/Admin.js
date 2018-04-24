@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
 import AdminNav from '../../Components/AdminNav/AdminNav.js';
 import { Container, Row, Col } from 'reactstrap';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText} from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import RichTextEditor from '../RichTextEditor/RichTextEditor.js';
 import classnames from 'classnames';
 import LoneAPi from '../../loneApi.js';
 
-const API = new LoneAPi;
+const API = new LoneAPi();
 class Admin extends Component{
     constructor(props){
         super(props);
