@@ -30,7 +30,7 @@ export default class HomeNav extends React.Component {
         return (
       <div>
         <Navbar id="homeNav" dark expand="md">
-          <NavbarBrand href="/">
+          <NavbarBrand className="d-flex align-items-center" href="/">
             <img id="logoImage" src="/static/img/LoneHenLogo.png" alt=""/>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />

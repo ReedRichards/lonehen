@@ -10,7 +10,9 @@ class HomePage extends Component {
     return (
         <div >
           <Container fluid id="hero">
-            <Container fluid className="screen ">
+            <Container fluid className="screen d-flex align-content-center flex-column text-center justify-content-center">
+                <h1 className="display-2">Lone Hen Winery</h1>
+                <p className="lead">Celebrating Life Together</p>
             </Container>
           </Container>
 

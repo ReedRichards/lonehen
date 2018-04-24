@@ -28,7 +28,9 @@ class Admin extends Component{
         const cookie = this.getCookie("token");
         if (cookie){
             this.setState({token:cookie});
-            this.aboutDetail();
+        }
+        else{
+            this.props.history.push("/login");
         }
 
     }
