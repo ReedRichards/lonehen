@@ -35,4 +35,9 @@ export default class LoneAPi {
         return responseJson;
        
     }
+    async get(destination){
+        let response =await fetch(baseAPIURL + '/' + destination + '/');
+        let responseJson = await response.json();
+        return responseJson;
+    }
 }

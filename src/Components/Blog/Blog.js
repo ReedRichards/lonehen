@@ -1,8 +1,17 @@
 
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import LoneAPi from '../../loneApi.js';
 
+const API = new LoneAPi;
 class MakersNotes extends Component {
+    state={
+        posts:""
+    }
+    componentDidMount(){
+        let posts =API.get("blog") ;
+        this.setState({posts:posts});
+    }
     render() {
         return (
             <Container className="pad-60">

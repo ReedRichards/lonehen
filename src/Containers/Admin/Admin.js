@@ -44,20 +44,6 @@ class Admin extends Component{
         var parts = value.split("; " + name + "=");
         if (parts.length === 2) return parts.pop().split(";").shift();
     }
-    aboutDetail(){
-        return(
-            fetch('http://127.0.0.1:8000/api/about-page/1/')
-                .then((response) => response.json())
-                .then((responseJson)=>{
-                    this.setState({aboutPage:responseJson});
-                    return responseJson;
-                })
-                .catch((error) => {
-                    console.log(error);
-                    return error;
-                })
-        );
-    }
 
     quickAdd= (value,destination)=>{
         var event = new Date(this.state.blogDate);
