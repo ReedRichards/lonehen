@@ -17,7 +17,14 @@ class Admin extends Component{
             blogTitle:"",
             blogDate:"",
             blogTime:"",
-            pressImage:null
+            pressImage:null,
+            eventTitle:"",
+            eventDate:"",
+            eventStartDate:"",
+            eventEndDate:"",
+            eventStartTime:"",
+            eventEndTime:""
+
         };
         this.handleChange = this.handleChange.bind(this);
         this.fileChangedHandler = this.fileChangedHandler.bind(this);
@@ -63,13 +70,20 @@ class Admin extends Component{
             } 
             API.post(destination,this.state.token,payload);
         case "press":
-            console.log(this.state.pressImage);
-            const presspayload ={
+            payload ={
                 press_image:this.state.pressImage,
                 press_descritption:value,
                 press_raw:rawvalue
             } 
-            API.post(destination,this.state.token,presspayload);
+            API.post(destination,this.state.token,payload);
+        case "press":
+            payload={
+                event_title:eventTitle,
+                event_start_date:eventStartDate,
+                event_end_date:eventEndDate,
+                event_raw:rawvalue,
+                event:value
+            }
 
         }
         
@@ -173,35 +187,48 @@ class Admin extends Component{
                           <Row>
                             <Col sm="12">
                               <div className="form-group">
-                                <label>Event Title:</label>
-                                <input
-                                  className="form-control"
-                                  onChange={(event) => this.handleChange(event,"eventTitle")}/>
+                                <Col sm="12"  >
+                                  <label>Event Title:</label>
+                                  <input
+                                    className="form-control"
+                                    onChange={(event) => this.handleChange(event,"eventTitle")}/>
+                                </Col>
 
+                                <Col sm="12" md="6" >
                                   <label>Start Date:</label>
                                   <input
                                     className="form-control"
-                                    onChange={(event) => this.handleChange(event,"blogDate")}
+                                    onChange={(event) => this.handleChange(event,"eventStartDate")}
                                     type="date"/>
+                                </Col>
+
+                                <Col sm="12" md="6" >
                                     <label>Time:</label>
                                     <input
                                       className="form-control"
-                                      onChange={(event) => this.handleChange(event,"blogTime")}
+                                      onChange={(event) => this.handleChange(event,"eventStartTime")}
                                       placeholder="13:00"/>
+                                </Col>
 
+                                <Col sm="12" md="6" >
                                   <label>End Date:</label>
                                   <input
                                     className="form-control"
-                                    onChange={(event) => this.handleChange(event,"blogDate")}
+                                    onChange={(event) => this.handleChange(event,"eventEndDate")}
                                     type="date"/>
+                                </Col>
+                                <Col sm="12" md="6" >
                                     <label>Time:</label>
                                     <input
                                       className="form-control"
-                                      onChange={(event) => this.handleChange(event,"blogTime")}
+                                      onChange={(event) => this.handleChange(event,"eventEndTime")}
                                       placeholder="13:00"/>
+                                </Col>
 
                               </div>
-                              <RichTextEditor/>
+                              <RichTextEditor
+                                post={this.quickAdd}
+                                destination="event"/>
                             </Col>
                           </Row>
                         </TabPane>
