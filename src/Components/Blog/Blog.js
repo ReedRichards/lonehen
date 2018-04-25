@@ -1,11 +1,9 @@
 
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import LoneAPi from '../../loneApi.js';
-import Post from '../BlogPosts/Posts/Posts.js';
+import BlogPosts from './BlogPosts/BlogPosts.js';
 
-const API = new LoneAPi();
-const baseAPIURL ='http://127.0.0.1:8000/api';
+const baseAPIURL ='http://api.bvzzdesign.com/lonehen';
 class Blog extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +24,12 @@ class Blog extends Component {
                 </Col>
               </Row>
               {posts.map(post =>
-                        <div key={post.id}>
-                              {post.post_title}
-                            </div>
+                         <BlogPosts
+                               key={post.id}
+                               title={post.post_title}
+                               date={post.post_date}
+                               body={post.post_body}/>
+
                        )}
               <Row >
               </Row>

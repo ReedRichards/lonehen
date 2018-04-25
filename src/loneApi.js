@@ -1,5 +1,5 @@
 
-const baseAPIURL ='http://127.0.0.1:8000/api';
+const baseAPIURL ='http://api.bvzzdesign.com/lonehen';
 
 export default class LoneAPi {
 
