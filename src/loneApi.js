@@ -20,6 +20,21 @@ export default class LoneAPi {
         return responseJson;
     } 
 
+    async put(destination,token,payload){
+        let response =await fetch(baseAPIURL + '/' + destination + '/', {
+            method: 'PUT',
+            headers: new Headers({
+                'accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token '+ token
+            }),
+            body: JSON.stringify(payload)
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+        
+    }
     async post(destination,token,payload){
         let response =await fetch(baseAPIURL + '/' + destination + '/', {
             method: 'POST',

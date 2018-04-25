@@ -129,7 +129,9 @@ class Admin extends Component{
                                            placeholder="13:00"/>
                                   </Col>
                               </div>
-                              <RichTextEditor post={this.quickAdd} token={this.state.token}/>
+                              <RichTextEditor
+                                post={this.quickAdd}
+                                destination="blog"/>
                             </Col>
                           </Row>
                         </TabPane>

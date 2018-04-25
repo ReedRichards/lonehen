@@ -5,7 +5,17 @@ import HomeCarousel from '../../Containers/HomeCarousel/HomeCarousel.js';
 import { Container, Row, Col } from 'reactstrap';
 import { Button } from 'reactstrap';
 
+const baseAPIURL ='http://api.bvzzdesign.com/lonehen';
 class HomePage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { aboutPage: {} } ;
+    }
+    componentDidMount() {
+        fetch(baseAPIURL + "/about-page/1/")
+            .then(response => response.json())
+            .then(data => this.setState({ aboutPage:data  }));
+    }
   render() {
     return (
         <div >
@@ -21,8 +31,9 @@ class HomePage extends Component {
           <Container id="about" className="pad-60">
             <Row >
               <Col sm="12" md="8">
-                <h1>Located in College Station, Texas is a really great winery with lots of awesome stuff going on. If you like wine, check this out.</h1>
-                <p>Steve and I sat on the upstairs porch, and thought, "Wouldn't it be great to grow grapes and run a winery?" We had always had an organic garden and we thought - "This will just be a bigger garden". That was about 10 years ago. Our goal was and still is - to join the long tradition of farmers and gardeners who grow and eat locally produced foods. To that end, Lone Hen Winery creates sparkling wines made in a modified traditional method utilizing estate grown and Texas sourced grapes. We hope to have everything figured out in about 3 to 4 generations, but we will certainly enjoy the process of learning! Come join us in our quest!</p>
+                <h1>{this.state.aboutPage.about_title}</h1>
+                <div
+                  dangerouslySetInnerHTML={{__html: this.state.aboutPage.about_description}} />
               </Col>
               <Col  sm="12" md="4">
                 <div >

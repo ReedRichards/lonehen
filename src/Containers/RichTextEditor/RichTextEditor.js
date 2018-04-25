@@ -42,7 +42,7 @@ const MARK_TAGS = {
 const rules = [
   {
     deserialize(el, next) {
-      const type = BLOCK_TAGS[el.tagName.toLowerCase()]
+        const type = BLOCK_TAGS[el.tagName.toLowerCase()];
       if (type) {
         return {
           object: 'block',
@@ -116,7 +116,8 @@ class RichTextExample extends React.Component {
    */
 
   state = {
-    value: Value.fromJSON(initialValue),
+      /*TODO doesn't work*/
+      value: html.deserialize(this.props.description),
       posts:this.props.posts
   }
 
@@ -266,7 +267,7 @@ class RichTextExample extends React.Component {
         {this.renderToolbar()}
         {this.renderEditor()}
         <Button outline color="primary">Cancel</Button>
-        <Button color="primary" onClick={() => this.props.post(this.postContent(this.state.value),"blog")}>Submit</Button>
+        <Button color="primary" onClick={() => this.props.post(this.state.value,this.postContent(this.state.value),this.props.destination)}>Submit</Button>
       </div>
     )
   }
