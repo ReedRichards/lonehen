@@ -35,8 +35,4 @@ export default class LoneAPi {
         return responseJson;
        
     }
-    get(destination){
-        fetch(baseAPIURL + '/' + destination + '/')
-            .then((response)=>response.json());
-    }
 }

@@ -37,19 +37,19 @@ export default class HomeNav extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link to="/"> <NavLink >Home</NavLink></Link>
+                <Link to="/" onClick={this.toggle}> <NavLink >Home</NavLink></Link>
               </NavItem>
               <NavItem>
-             <Link to="/#about"><NavLink href="/#about">About</NavLink></Link>
+                <Link to="/#about" onClick={this.toggle}><NavLink href="/#about">About</NavLink></Link>
               </NavItem>
               <NavItem>
-                <Link to="/#press"><NavLink href="/#press">Press</NavLink></Link>
+                <Link to="/#press" onClick={this.toggle}><NavLink href="/#press">Press</NavLink></Link>
               </NavItem>
               <NavItem>
-                <Link to="/events"><NavLink href="/events">Events</NavLink></Link>
+                <Link to="/events" onClick={this.toggle}><NavLink href="/events">Events</NavLink></Link>
               </NavItem>
               <NavItem>
-                <Link to="/makers-notes"><NavLink href="/makers-notes/">Maker's Notes</NavLink></Link>
+                <Link to="/makers-notes" onClick={this.toggle}><NavLink href="/makers-notes/">Maker's Notes</NavLink></Link>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -69,7 +69,7 @@ export default class HomeNav extends React.Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
-                <Link to="/blog"><NavLink href="/blog">Blog</NavLink></Link>
+                <Link to="/blog" onClick={this.toggle}><NavLink href="/blog">Blog</NavLink></Link>
               </NavItem>
             </Nav>
           </Collapse>

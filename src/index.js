@@ -11,12 +11,16 @@ import HomeNav from './Components/HomeNav/HomeNav.js';
 import MakersNotes from './Components/MakersNotes/MakersNotes.js';
 import Blog from './Components/Blog/Blog.js';
 import Admin from './Containers/Admin/Admin.js';
+import Home from './Containers/Admin/Home/Home.js';
+import AdminNav from './Components/AdminNav/AdminNav.js';
 
 
 ReactDOM.render((
     <Router >
       <div>
+        <Route path="/admin" component={AdminNav}/>
         <Switch >
+          <Route exact path="/admin/home" component={Home}/>
           <Route exact path="/admin" component={Admin}/>
           <Route exact path="/login" component={Login}/>
           <Route path="/" component={HomeNav}/>

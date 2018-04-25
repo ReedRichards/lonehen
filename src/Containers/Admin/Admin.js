@@ -67,7 +67,6 @@ class Admin extends Component{
     render(){
         return(
             <div >
-              <AdminNav/>
               <Container>
                 <Row >
                   <Col xs="12">
