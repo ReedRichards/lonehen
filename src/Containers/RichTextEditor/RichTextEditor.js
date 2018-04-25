@@ -2,7 +2,6 @@ import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import Html from 'slate-html-serializer';
 import React from 'react';
-import initialValue from './value.json';
 import { isKeyHotkey } from 'is-hotkey';
 import { Container, Row, Col,Button } from 'reactstrap';
 
@@ -107,7 +106,6 @@ const html = new Html({ rules });
  *
  * @type {Component}
  */
-
 class RichTextExample extends React.Component {
   /**
    * Deserialize the initial editor value.
@@ -115,12 +113,14 @@ class RichTextExample extends React.Component {
    * @type {Object}
    */
 
+    sendValue =()=> Value.toJSON(this.state.value);
   state = {
-      /*TODO doesn't work*/
-      value: html.deserialize(this.props.description),
+      value: Value.fromJSON(this.props.description),
       posts:this.props.posts
   }
-
+    componentDidMount(){
+        console.log(this.props.description);
+    }
   /**
    * Check if the current selection has a mark with `type` in it.
    *
@@ -267,7 +267,7 @@ class RichTextExample extends React.Component {
         {this.renderToolbar()}
         {this.renderEditor()}
         <Button outline color="primary">Cancel</Button>
-        <Button color="primary" onClick={() => this.props.post(this.state.value,this.postContent(this.state.value),this.props.destination)}>Submit</Button>
+        <Button color="primary" onClick={() => this.props.post(this.sendValue,this.postContent(this.state.value),this.props.destination)}>Submit</Button>
       </div>
     )
   }

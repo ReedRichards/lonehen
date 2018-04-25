@@ -12,12 +12,12 @@ export default class Home extends Component {
         this.state={
             aboutTitle:"",
             aboutDescription:"",
-            aboutRaw:""
+            aboutRaw:false
         };
         this.handleChange = this.handleChange.bind(this);
 
     }
-    componentDidMount(){
+    componentWillMount(){
         const cookie = this.getCookie("token");
         if (cookie){
             this.setState({token:cookie});
@@ -25,11 +25,14 @@ export default class Home extends Component {
         if (this.state.aboutTitle === "") {
             fetch(baseAPIURL + "/about-page/1/")
                 .then(response => response.json())
-                .then(data => this.setState({
-                    aboutTitle:data.about_title,
-                    aboutDescription:data.about_description,
-                    aboutRaw:data.about_raw
-                }));
+                .then(data =>{
+
+                    this.setState({
+                        aboutTitle:data.about_title,
+                        aboutDescription:data.about_description,
+                        aboutRaw:data.about_raw
+                    })
+                });
                       }
     }
     getCookie(name) {
@@ -56,6 +59,14 @@ export default class Home extends Component {
     }
 
     render(){
+        let test = null;
+
+        if(this.state.aboutRaw){
+          test = <RichTextEditor
+            post={this.quickAdd}
+            destination="about-page/1"
+            description={this.state.aboutRaw}/>;
+        }
         return(
             <Container>
               <Row >
@@ -68,10 +79,7 @@ export default class Home extends Component {
                     onChange={(event) => this.handleChange(event,"aboutTitle")}
                     value={this.state.aboutTitle}  />
                     <h2>Home Page About Us Decription:</h2>
-                    <RichTextEditor
-                      post={this.quickAdd}
-                      destination="about-page/1"
-                      description={this.state.aboutRaw}/>
+                    {test}
                 </Col>
               </Row>
             </Container>
