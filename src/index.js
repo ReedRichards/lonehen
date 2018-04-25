@@ -12,6 +12,8 @@ import MakersNotes from './Components/MakersNotes/MakersNotes.js';
 import Blog from './Components/Blog/Blog.js';
 import Admin from './Containers/Admin/Admin.js';
 import Home from './Containers/Admin/Home/Home.js';
+import Press from './Containers/Admin/Press/Press.js';
+import EventsAdmin from './Containers/Admin/Events/Events.js';
 import AdminNav from './Components/AdminNav/AdminNav.js';
 
 
@@ -20,6 +22,8 @@ ReactDOM.render((
       <div>
         <Route path="/admin" component={AdminNav}/>
         <Switch >
+          <Route exact path="/admin/events" component={EventsAdmin}/>
+          <Route exact path="/admin/press" component={Press}/>
           <Route exact path="/admin/home" component={Home}/>
           <Route exact path="/admin" component={Admin}/>
           <Route exact path="/login" component={Login}/>

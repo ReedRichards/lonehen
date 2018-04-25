@@ -4,7 +4,11 @@ import Html from 'slate-html-serializer';
 import React from 'react';
 import { isKeyHotkey } from 'is-hotkey';
 import { Container, Row, Col,Button } from 'reactstrap';
+import initialValue from './value.json';
 
+import LoneAPi from '../../loneApi.js';
+
+const API = new LoneAPi();
 /**
  * Define the default node type.
  *
@@ -115,11 +119,26 @@ class RichTextExample extends React.Component {
 
     sendValue =()=> Value.toJSON(this.state.value);
   state = {
-      value: Value.fromJSON(this.props.description),
+      value: Value.fromJSON(initialValue),
       posts:this.props.posts
   }
+    componentWillMount(){
+        const cookie = this.getCookie("token");
+        if (cookie){
+            this.setState({token:cookie});
+        }
+        
+    }
+    getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
     componentDidMount(){
-        console.log(this.props.description);
+        if(this.props.description){
+            this.setState({value: Value.fromJSON(this.props.description)});
+        }
     }
   /**
    * Check if the current selection has a mark with `type` in it.
@@ -254,6 +273,9 @@ class RichTextExample extends React.Component {
         return string;
     }
   
+    deleteItem(destination,token){
+        API.delete(destination,token);
+    }
 
   /**
    * Render.
@@ -262,12 +284,18 @@ class RichTextExample extends React.Component {
    */
 
   render() {
+      let deleteButton =null;
+      if(this.props.deleteBool){
+          deleteButton= <Button onClick={()=>this.deleteItem(this.props.destination,this.state.token)}  color="danger">Delete</Button>;
+
+      }
     return (
       <div>
         {this.renderToolbar()}
         {this.renderEditor()}
-        <Button outline color="primary">Cancel</Button>
-        <Button color="primary" onClick={() => this.props.post(this.sendValue,this.postContent(this.state.value),this.props.destination)}>Submit</Button>
+        {deleteButton}{' '}
+        <Button  outline color="primary">Cancel</Button>{' '}
+        <Button color="primary" onClick={() => this.props.post(this.state.value,this.postContent(this.state.value),this.props.destination)}>Submit</Button>{''}
       </div>
     )
   }
@@ -297,6 +325,7 @@ class RichTextExample extends React.Component {
 
   /**
    * Render a mark-toggling toolbar button.
+
    *
    * @param {String} type
    * @param {String} icon

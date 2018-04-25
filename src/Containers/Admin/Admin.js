@@ -16,9 +16,11 @@ class Admin extends Component{
             token:"",
             blogTitle:"",
             blogDate:"",
-            blogTime:""
+            blogTime:"",
+            pressImage:null
         };
         this.handleChange = this.handleChange.bind(this);
+        this.fileChangedHandler = this.fileChangedHandler.bind(this);
 
     }
     handleChange(event,key){
@@ -47,20 +49,39 @@ class Admin extends Component{
         if (parts.length === 2) return parts.pop().split(";").shift();
     }
 
-    quickAdd= (value,destination)=>{
-        var event = new Date(this.state.blogDate);
-        const isoDate = event.toISOString();
+    quickAdd= (rawvalue,value,destination)=>{
+        let payload ={};
 
         switch(destination){
         case "blog":
-            const payload ={
+            var event = new Date(this.state.blogDate);
+            const isoDate = event.toISOString();
+            payload ={
                 post_title:this.state.blogTitle,
                 post_body:value,
                 post_date:isoDate
             } 
             API.post(destination,this.state.token,payload);
+        case "press":
+            console.log(this.state.pressImage);
+            const presspayload ={
+                press_image:this.state.pressImage,
+                press_descritption:value,
+                press_raw:rawvalue
+            } 
+            API.post(destination,this.state.token,presspayload);
+
         }
         
+    }
+    fileChangedHandler(event){
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend =()=>{
+            console.log(reader.result) ;
+            this.setState({pressImage: reader.result});
+        }
+        reader.readAsDataURL(file);
     }
 
 
@@ -140,9 +161,11 @@ class Admin extends Component{
                             <Col sm="12">
                               <div className="form-group">
                                 <label>Upoload an Image:</label>
-                                <input className="form-control" type="file"/>
+                                <input onChange={(event) => this.fileChangedHandler(event)} className="form-control" type="file"/>
                               </div>
-                              <RichTextEditor/>
+                              <RichTextEditor
+                                post={this.quickAdd}
+                                destination="press"/>
                             </Col>
                           </Row>
                         </TabPane>
@@ -150,8 +173,33 @@ class Admin extends Component{
                           <Row>
                             <Col sm="12">
                               <div className="form-group">
-                                <label>Title:</label>
-                                <input className="form-control"/>
+                                <label>Event Title:</label>
+                                <input
+                                  className="form-control"
+                                  onChange={(event) => this.handleChange(event,"eventTitle")}/>
+
+                                  <label>Start Date:</label>
+                                  <input
+                                    className="form-control"
+                                    onChange={(event) => this.handleChange(event,"blogDate")}
+                                    type="date"/>
+                                    <label>Time:</label>
+                                    <input
+                                      className="form-control"
+                                      onChange={(event) => this.handleChange(event,"blogTime")}
+                                      placeholder="13:00"/>
+
+                                  <label>End Date:</label>
+                                  <input
+                                    className="form-control"
+                                    onChange={(event) => this.handleChange(event,"blogDate")}
+                                    type="date"/>
+                                    <label>Time:</label>
+                                    <input
+                                      className="form-control"
+                                      onChange={(event) => this.handleChange(event,"blogTime")}
+                                      placeholder="13:00"/>
+
                               </div>
                               <RichTextEditor/>
                             </Col>

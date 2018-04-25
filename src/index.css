@@ -49,6 +49,7 @@ body {
 .slide{
     max-height:1000px;
     width:100%;
+    font-family:serif;
 }
 #footer{
     background-color:grey;
@@ -56,7 +57,8 @@ body {
     height:80px;
 }
 .datebox{
-    background-color:grey;
+    background-color:#e8ecec;
+    color:#333;
     height:64px;
     width:70px;
 }
