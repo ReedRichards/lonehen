@@ -54,11 +54,9 @@ export default class LoneAPi {
         let response= await fetch(baseAPIURL+ '/' + destination +'/',{
             method: 'DELETE',
             headers: new Headers({
-                'accept': 'application/json',
-                'Content-Type': 'application/json',
                 'Authorization': 'Token '+ token
-            })})
-        let responseJson = await response.json();
+            })});
+        let responseJson = await response;
         console.log(responseJson);
         return responseJson;
 

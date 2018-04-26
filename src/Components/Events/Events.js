@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import EventNode from './EventNode/EventNode.js';
 
+
+const baseAPIURL ='http://api.bvzzdesign.com/lonehen';
 class Events extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { events: [] } ;
+    }
+    componentDidMount() {
+        fetch(baseAPIURL + "/event/")
+            .then(response => response.json())
+            .then(data => this.setState({ events:data  }));
+    }
+
     render() {
+        const {events} =this.state;
         return (
             <div >
-              <Container className="pad-60">
-                <Row >
-                  <Col md="2" >
-                    <div className="datebox">
-                    <div>Apr</div>
-                    <div>14</div>
-                    </div>
-                  </Col>
-                  <Col md="10" >
-                    <h3 >Groovy Grape Wine Walk Lone Hen</h3>
-                    <p > Saturday Apr 14, 2018 </p>
-                    <p >1:00 pm - 6:00 pm</p>
-                    <p>Come visit us in fabulous downtown navasota</p>
-                  </Col>
-                </Row>
-              </Container>
+              {events.map(event =>
+                          <EventNode
+                                title={event.event_title}
+                                startDate={event.event_start_date}
+                                endDate={event.event_end_date}
+                                startTime={event.event_start_time}
+                                endTime={event.event_end_time}
+                                details={event.event_details}/>
+
+              )}
             </div>
         );
     }

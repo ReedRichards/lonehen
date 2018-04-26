@@ -3,6 +3,11 @@ body {
   padding: 0;
   font-family:'Raleway' sans-serif !important;
 }
+.row{
+
+    overflow-y:auto;
+
+}
 #hero{
     height:80vh;
     background-image:url("/static/img/porchbottles.png");

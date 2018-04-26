@@ -11,6 +11,16 @@ export default class Press extends Component {
     constructor(props){
         super(props);
         this.state={press:false};
+        this.fileChangedHandler = this.fileChangedHandler.bind(this);
+    }
+    fileChangedHandler(event){
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend =()=>{
+            console.log(reader.result) ;
+            this.setState({pressImage: reader.result});
+        }
+        reader.readAsDataURL(file);
     }
     componentWillMount(){
         const cookie = this.getCookie("token");

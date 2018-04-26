@@ -13,6 +13,8 @@ import Blog from './Components/Blog/Blog.js';
 import Admin from './Containers/Admin/Admin.js';
 import Home from './Containers/Admin/Home/Home.js';
 import Press from './Containers/Admin/Press/Press.js';
+import AdminShop from './Containers/Admin/AdminShop/AdminShop.js';
+import AdminBlog from './Containers/Admin/AdminBlog/AdminBlog.js';
 import EventsAdmin from './Containers/Admin/Events/Events.js';
 import AdminNav from './Components/AdminNav/AdminNav.js';
 
@@ -22,6 +24,8 @@ ReactDOM.render((
       <div>
         <Route path="/admin" component={AdminNav}/>
         <Switch >
+          <Route exact path="/admin/shop" component={AdminShop}/>
+          <Route exact path="/admin/blog" component={AdminBlog}/>
           <Route exact path="/admin/events" component={EventsAdmin}/>
           <Route exact path="/admin/press" component={Press}/>
           <Route exact path="/admin/home" component={Home}/>

@@ -117,7 +117,6 @@ class RichTextExample extends React.Component {
    * @type {Object}
    */
 
-    sendValue =()=> Value.toJSON(this.state.value);
   state = {
       value: Value.fromJSON(initialValue),
       posts:this.props.posts
@@ -295,7 +294,7 @@ class RichTextExample extends React.Component {
         {this.renderEditor()}
         {deleteButton}{' '}
         <Button  outline color="primary">Cancel</Button>{' '}
-        <Button color="primary" onClick={() => this.props.post(this.state.value,this.postContent(this.state.value),this.props.destination)}>Submit</Button>{''}
+        <Button color="primary" onClick={() => this.props.post(this.state.value,this.postContent(this.state.value), this.props.destination) }>Submit</Button>{''}
       </div>
     )
   }
@@ -389,7 +388,6 @@ class RichTextExample extends React.Component {
           renderNode={this.renderNode}
           renderMark={this.renderMark}
           spellCheck
-          autoFocus
         />
       </div>
     )
