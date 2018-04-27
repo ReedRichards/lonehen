@@ -45,34 +45,44 @@ export default class Press extends Component {
         let press = null;
         if(this.state.press){
             press = this.state.press.map( p =>
-                                          <Col sm="12" className="border"      >
+                                          <Col sm="12" className="p-5"      >
                                           <Col sm="12" className="d-flex  justify-content-center mb-5" >
                                           <img src={p.press_image} alt=""/>
                                           </Col>
 
+                                          <Col sm="12" className="p-5"      >
                                           <RichTextEditor
                                           post={this.quickAdd}
                                           deleteBool={true}
                                           description={p.press_raw}
                                           destination={'press/' + p.id }/>
                                           </Col>
+                                          </Col>
                                         )
         }
         return(
             <Container >
               <Row >
-                <Col  sm="12" className="border">
+                <Col  sm="12" className="p-5">
+                  <Col  sm="12" className="p-5">
                   <h2> add a new press release</h2>
-                  <div className="form-group">
+                  </Col>
+                  <Col className=" p-5">
                     <label>Upoload an Image:</label>
                     <input onChange={(event) => this.fileChangedHandler(event)} className="form-control" type="file"/>
-                  </div>
+                  </Col>
+                  <Col xs="12" className=" p-5">
                   <RichTextEditor
                     post={this.quickAdd}
                     destination="press"/>
                 </Col>
+                </Col>
+                <Col xs="12" className=" p-5">
                 <h2>Edit or delete posts</h2>
+                </Col>
+                <Col xs="12" className=" p-5">
                 <div >{press}</div>
+                </Col>
               </Row>
             </Container>
         )

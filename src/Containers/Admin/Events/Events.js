@@ -1,5 +1,7 @@
 
 import React,{Component} from 'react';
+import { Alert } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Container, Row, Col , Button} from 'reactstrap';
 import RichTextEditor from '../../RichTextEditor/RichTextEditor.js';
 import LoneAPi from '../../../loneApi.js';
@@ -12,10 +14,36 @@ export default class EventsAdmin extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.forceUpdate = this.forceUpdate.bind(this);
+        this.mtoggle = this.mtoggle.bind(this);
+        this.deltoggle = this.deltoggle.bind(this);
         this.state={
-            events:false
+            events:false,
+            modal: false
         };
     }
+    mtoggle(dest,id) {
+        this.setState({
+            modal: !this.state.modal,
+            destination:dest,
+            id:id
+        });
+    }
+    deltoggle() {
+        API.delete(this.state.destination,this.state.token);
+        this.mtoggle();
+        let events = {...this.state.events};
+        for (var e in events){
+            if (events[e].id == this.state.id){
+                let index = events.findIndex(events[e]);
+                events.splice(index,1);
+                this.setState({events:events});
+            }
+        } 
+
+        fetch(baseAPIURL + "/event/")
+            .then(response => response.json())
+            .then(data => this.setState({ events:data  }));
+   }
     componentWillMount(){
         const cookie = this.getCookie("token");
         if (cookie){
@@ -73,7 +101,6 @@ export default class EventsAdmin extends Component {
             }
             API.post(destination,this.state.token,payload);
             break;
-
         }
             //sets state to re render component
             fetch(baseAPIURL + "/event/")
@@ -90,17 +117,17 @@ export default class EventsAdmin extends Component {
         let renderevents = null;
         if(this.state.events){
             renderevents = this.state.events.map( e =>
-                <Col sm="12" key={e.id} className="border" >
-                  <div className="form-group">
-                    <Col sm="12"  >
+                <Col sm="12" key={e.id} className="border-bottom mb-5" >
+                    <Col sm="12" className=""  >
                       <label>Event Title:</label>
                       <input
                         value={e.event_title}
                         className="form-control"
                         onChange={(event) => this.handleChange(event,"eventTitle")}/>
                     </Col>
-                    
-                    <Col sm="12" md="6" >
+                   <Row className="ml-0 mr-0"> 
+
+                    <Col sm="12" md="4" className="" >
                       <label>Start Date:</label>
                       <input
                         value={e.event_start_date}
@@ -109,7 +136,7 @@ export default class EventsAdmin extends Component {
                         type="date"/>
                     </Col>
                     
-                    <Col sm="12" md="6" >
+                    <Col sm="12" md="4" className="">
                       <label>Time:</label>
                       <input
                         value={e.event_start_time}
@@ -117,8 +144,9 @@ export default class EventsAdmin extends Component {
                         className="form-control"
                         onChange={(event) => this.handleChange(event,"eventStartTime")}/>
                     </Col>
-                    
-                    <Col sm="12" md="6" >
+                                                  </Row>
+                                                  <Row className="ml-0 mr-0"> 
+                    <Col sm="12" md="4" className="">
                       <label>End Date:</label>
                       <input
                         value={e.event_end_date}
@@ -126,7 +154,7 @@ export default class EventsAdmin extends Component {
                         onChange={(event) => this.handleChange(event,"eventEndDate")}
                                     type="date"/>
                     </Col>
-                    <Col sm="12" md="6" >
+                    <Col sm="12" md="4" className="">
                       <label>End Time:</label>
                       <input
                         value={e.event_end_time}
@@ -134,69 +162,90 @@ export default class EventsAdmin extends Component {
                         onChange={(event) => this.handleChange(event,"eventEndTime")}
                         placeholder="4:00 pm"/>
                     </Col>
-                    
-                  </div>
+                                                  </Row>
+                                                  <Col sm="12"  className="p-5">
                   <RichTextEditor
                     post={this.quickAdd}
                     deleteBool={true}
+                    del={this.mtoggle}
+                    key={e.id}
                     description={e.press_raw}
                     destination={"event/" + e.id}/>
+                                                  </Col>
                 </Col>
             )
         }
 
         return(
             <Container>
-              <Row >
-               <h2 >Add New Event</h2> 
-                            <Col sm="12">
-                              <div className="form-group">
-                                <Col sm="12"  >
-                                  <label>Event Title:</label>
-                                  <input
-                                    className="form-control"
-                                    onChange={(event) => this.handleChange(event,"eventTitle")}/>
-                                </Col>
+              <Modal isOpen={this.state.modal} toggle={this.mtoggle} className={this.props.className}>
+                <ModalHeader toggle={this.mtoggle}>Delete Post</ModalHeader>
+                <ModalBody>
+                  <Alert color="danger">
+                    warning, your are about to delete your post and will not be able to recover it, do you wish to continue?
+                  </Alert>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="link" onClick={this.mtoggle}>Cancel</Button>{' '}
+                  <Button color="primary" onClick={this.deltoggle}>Delete</Button>{' '}
 
-                                <Col sm="12" md="6" >
-                                  <label>Start Date:</label>
-                                  <input
-                                    className="form-control"
-                                    onChange={(event) => this.handleChange(event,"eventStartDate")}
-                                    type="date"/>
-                                </Col>
+                </ModalFooter>
+              </Modal>
 
-                                <Col sm="12" md="6" >
-                                    <label>Time:</label>
-                                    <input
-                                      placeholder="10:00 am"
-                                      className="form-control"
-                                      onChange={(event) => this.handleChange(event,"eventStartTime")}/>
-                                </Col>
-
-                                <Col sm="12" md="6" >
-                                  <label>End Date:</label>
-                                  <input
-                                    className="form-control"
-                                    onChange={(event) => this.handleChange(event,"eventEndDate")}
-                                    type="date"/>
-                                </Col>
-                                <Col sm="12" md="6" >
-                                    <label>Time:</label>
-                                    <input
-                                      className="form-control"
-                                      onChange={(event) => this.handleChange(event,"eventEndTime")}
-                                      placeholder="4:00 pm"/>
-                                </Col>
-
-                              </div>
-                              <RichTextEditor
-                                post={this.quickAdd}
-                                destination="event"/>
-                            </Col>
-
+              <Row className="mt-5">
+                <Col className="pd-5">
+                  <h2 >Add New Event</h2> 
+                </Col>
+                <Col sm="12" className=" mb-5">
+                  <Col sm="12"  >
+                    <label>Event Title:</label>
+                    <input
+                      className="form-control"
+                      onChange={(event) => this.handleChange(event,"eventTitle")}/>
+                  </Col>
+                  
+                  <Col sm="12" md="6" >
+                    <label>Start Date:</label>
+                    <input
+                      className="form-control"
+                      onChange={(event) => this.handleChange(event,"eventStartDate")}
+                      type="date"/>
+                  </Col>
+                  
+                  <Col sm="12" md="6" >
+                    <label>Time:</label>
+                    <input
+                      placeholder="10:00 am"
+                      className="form-control"
+                      onChange={(event) => this.handleChange(event,"eventStartTime")}/>
+                  </Col>
+                  
+                  <Col sm="12" md="6" >
+                    <label>End Date:</label>
+                    <input
+                      className="form-control"
+                      onChange={(event) => this.handleChange(event,"eventEndDate")}
+                      type="date"/>
+                  </Col>
+                  <Col sm="12" md="6" className="mb-5" >
+                    <label>Time:</label>
+                    <input
+                      className="form-control"
+                      onChange={(event) => this.handleChange(event,"eventEndTime")}
+                      placeholder="4:00 pm"/>
+                  </Col>
+                  <Col className="pd-5">
+                    <RichTextEditor
+                      post={this.quickAdd}
+                      destination="event"/>
+                  </Col>
+                </Col>
+                <Col className="pd-5">
                 <h2 >Edit or delete an Event</h2>
-                <div>{renderevents}</div>
+                </Col>
+                <div>
+                  {renderevents}
+                </div>
               </Row>
             </Container>
         );

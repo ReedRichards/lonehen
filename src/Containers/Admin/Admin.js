@@ -1,10 +1,13 @@
 import React,{Component} from 'react';
 import AdminNav from '../../Components/AdminNav/AdminNav.js';
 import { Container, Row, Col } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import RichTextEditor from '../RichTextEditor/RichTextEditor.js';
 import classnames from 'classnames';
 import LoneAPi from '../../loneApi.js';
+import { Alert } from 'reactstrap';
+
 
 const API = new LoneAPi();
 class Admin extends Component{
@@ -29,15 +32,23 @@ class Admin extends Component{
             shopQuantity:"",
             shopPrice:0,
             shopCategory:"",
-            shopDescription:""
+            shopDescription:"",
+            modal: false
+
 
         };
         this.handleChange = this.handleChange.bind(this);
         this.fileChangedHandler = this.fileChangedHandler.bind(this);
+        this.mtoggle = this.mtoggle.bind(this);
 
     }
+    mtoggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
     handleChange(event,key){
-        console.log(event.target.value);
         this.setState({[key]:event.target.value}) ;
     }
     componentDidMount(){
@@ -65,6 +76,7 @@ class Admin extends Component{
 
     quickAdd= (rawvalue,value,destination)=>{
         let payload ={};
+        const param = {target:{value:""}};
 
         switch(destination){
         case "blog":
@@ -75,7 +87,10 @@ class Admin extends Component{
                 post_body:value,
                 post_date:isoDate
             } ;
-            API.post(destination,this.state.token,payload);
+             API.post(destination,this.state.token,payload);
+
+            this.handleChange(param,"blogTitle");
+            this.handleChange(param,"blogDate");
             break;
         case "press":
             payload ={
@@ -83,6 +98,7 @@ class Admin extends Component{
                 press_descritption:value,
                 press_raw:rawvalue
             } ;
+            this.handleChange(param,"pressImage");
             API.post(destination,this.state.token,payload);
             break;
         case "event":
@@ -98,26 +114,31 @@ class Admin extends Component{
                 event_start_time:this.state.eventStartTime,
                 event_end_date:isoEndDate,
                 event_end_time:this.state.eventEndTime,
-                event_raw:this.rawvalue,
-                event_details:this.value
+                event_raw:rawvalue,
+                event_details:value
             };
+            this.handleChange(param,"eventTitle");
+            this.handleChange(param,"eventStartDate");
+            this.handleChange(param,"eventEndDate");
+            this.handleChange(param,"eventStartTime");
+            this.handleChange(param,"eventEndTime");
             API.post(destination,this.state.token,payload);
             break;
         case "shop":
-            console.log(rawvalue);
             payload={
                 name:this.state.shopName,
                 image:this.state.shopImage,
                 quantity:this.state.shopQuantity,
                 price:this.state.shopPrice,
                 category:this.state.shopCategory,
-                description:this.value,
-                raw_description:this.rawvalue
+                description:value,
+                raw_description:rawvalue
             };
             API.post(destination,this.state.token,payload);
             break;
         }
         
+        this.mtoggle();
     }
     fileChangedHandler(event,keyVal){
         const file = event.target.files[0];
@@ -132,6 +153,17 @@ class Admin extends Component{
     render(){
         return(
             <div >
+              <Modal isOpen={this.state.modal} toggle={this.mtoggle} className={this.props.className}>
+                <ModalHeader toggle={this.mtoggle}>Post Successful</ModalHeader>
+                <ModalBody>
+                  <Alert color="success">
+                    Your post was successful
+                  </Alert>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.mtoggle}>Done</Button>{' '}
+                </ModalFooter>
+              </Modal>
               <Container>
                 <Row >
                   <Col xs="12">
@@ -178,15 +210,18 @@ class Admin extends Component{
                                 <label>Title:</label>
                                 <input
                                   className="form-control"
+                                  value={this.state.blogTitle}
                                   onChange={(event) => this.handleChange(event,"blogTitle")}/>
                                     <label>Date:</label>
                                     <input
+                                      value={this.state.blogDate}
                                       className="form-control"
                                       onChange={(event) => this.handleChange(event,"blogDate")}
                                       type="date"/>
                               </div>
                               <RichTextEditor
                                 post={this.quickAdd}
+                                quick={true}
                                 destination="blog"/>
                             </Col>
                           </Row>
@@ -199,6 +234,7 @@ class Admin extends Component{
                                 <input onChange={(event) => this.fileChangedHandler(event,"pressImage")} className="form-control" type="file"/>
                               </div>
                               <RichTextEditor
+                                quick={true}
                                 post={this.quickAdd}
                                 destination="press"/>
                             </Col>
@@ -248,6 +284,7 @@ class Admin extends Component{
 
                               </div>
                               <RichTextEditor
+                                quick={true}
                                 post={this.quickAdd}
                                 destination="event"/>
                             </Col>
@@ -292,6 +329,7 @@ class Admin extends Component{
                                   
                               </Col>
                               <RichTextEditor
+                                quick={true}
                                 post={this.quickAdd}
                                 destination="shop"/>
                             </Col>

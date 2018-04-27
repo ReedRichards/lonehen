@@ -269,12 +269,10 @@ class RichTextExample extends React.Component {
 
     postContent (value){
         const string = html.serialize(value);
+        console.log(string);
         return string;
     }
   
-    deleteItem(destination,token){
-        API.delete(destination,token);
-    }
 
   /**
    * Render.
@@ -285,16 +283,22 @@ class RichTextExample extends React.Component {
   render() {
       let deleteButton =null;
       if(this.props.deleteBool){
-          deleteButton= <Button onClick={()=>this.deleteItem(this.props.destination,this.state.token)}  color="danger">Delete</Button>;
+          deleteButton= <Button onClick={()=> this.props.del(this.props.destination,this.props.key)}  color="danger">Delete</Button>;
 
       }
     return (
       <div>
         {this.renderToolbar()}
+        <br/>
         {this.renderEditor()}
+        <br/>
         {deleteButton}{' '}
-        <Button  outline color="primary">Cancel</Button>{' '}
-        <Button color="primary" onClick={() => this.props.post(this.state.value,this.postContent(this.state.value), this.props.destination) }>Submit</Button>{''}
+        <Button color="primary" onClick={() => {
+              this.props.post(this.state.value,this.postContent(this.state.value), this.props.destination);
+              if(this.props.quick){
+                  this.setState({value: Value.fromJSON(initialValue)});
+              }
+          }}>Submit</Button>{''}
       </div>
     )
   }
@@ -379,7 +383,7 @@ class RichTextExample extends React.Component {
 
   renderEditor = () => {
     return (
-      <div className="border">
+      <Col xs="12" className="border p-5">
         <Editor
           placeholder="Enter some rich text..."
           value={this.state.value}
@@ -389,7 +393,7 @@ class RichTextExample extends React.Component {
           renderMark={this.renderMark}
           spellCheck
         />
-      </div>
+      </Col>
     )
   }
 
