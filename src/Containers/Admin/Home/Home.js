@@ -74,6 +74,8 @@ export default class Home extends Component {
                     });
                 });
             break;
+        default:
+            console.log("should never happen : adminhome line 78");
         }
         
     }

@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import AdminNav from '../../Components/AdminNav/AdminNav.js';
 import { Container, Row, Col } from 'reactstrap';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
@@ -136,6 +135,9 @@ class Admin extends Component{
             };
             API.post(destination,this.state.token,payload);
             break;
+
+        default:
+            console.log("should never happen admin line 140")
         }
         
         this.mtoggle();

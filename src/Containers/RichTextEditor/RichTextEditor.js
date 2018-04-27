@@ -3,12 +3,10 @@ import { Value } from 'slate';
 import Html from 'slate-html-serializer';
 import React from 'react';
 import { isKeyHotkey } from 'is-hotkey';
-import { Container, Row, Col,Button } from 'reactstrap';
+import {  Row, Col,Button } from 'reactstrap';
 import initialValue from './value.json';
 
-import LoneAPi from '../../loneApi.js';
 
-const API = new LoneAPi();
 /**
  * Define the default node type.
  *
@@ -55,7 +53,7 @@ const rules = [
       }
     },
     serialize(obj, children) {
-      if (obj.object == 'block') {
+      if (obj.object === 'block') {
         switch (obj.type) {
           case 'paragraph':
             return <p>{children}</p>;
@@ -67,6 +65,8 @@ const rules = [
             return <ol>{children}</ol>;
         case 'list-item':
             return <li>{children}</li>;
+        default:
+            console.log("should never happen richtexteditor line 69");
         }
       }
     },
@@ -84,7 +84,7 @@ const rules = [
       }
     },
     serialize(obj, children) {
-      if (obj.object == 'mark') {
+      if (obj.object === 'mark') {
         switch (obj.type) {
           case 'bold':
             return <strong>{children}</strong>;
@@ -98,6 +98,8 @@ const rules = [
                   <code>{children}</code>
                 </pre>
             );
+        default:
+            console.log("should never happen rich text line 102");
 
         }
       }
@@ -283,7 +285,10 @@ class RichTextExample extends React.Component {
   render() {
       let deleteButton =null;
       if(this.props.deleteBool){
-          deleteButton= <Button onClick={()=> this.props.del(this.props.destination,this.props.key)}  color="danger">Delete</Button>;
+          deleteButton= <Button onClick={()=>{
+              this.props.del(this.props.destination,this.props.id);
+              console.log(this.props.id);
+          }}  color="danger">Delete</Button>;
 
       }
     return (

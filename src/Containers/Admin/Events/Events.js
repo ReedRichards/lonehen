@@ -1,5 +1,4 @@
-
-import React,{Component} from 'react';
+import React,{Component,PureComponent} from 'react';
 import { Alert } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Container, Row, Col , Button} from 'reactstrap';
@@ -9,40 +8,37 @@ import LoneAPi from '../../../loneApi.js';
 const API = new LoneAPi();
 const baseAPIURL ='http://api.bvzzdesign.com/lonehen';
 
-export default class EventsAdmin extends Component {
+export default class EventsAdmin extends PureComponent {
     constructor(props){
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.forceUpdate = this.forceUpdate.bind(this);
         this.mtoggle = this.mtoggle.bind(this);
         this.deltoggle = this.deltoggle.bind(this);
         this.state={
-            events:false,
+            events:[],
             modal: false
         };
     }
+    
+
+
+
     mtoggle(dest,id) {
         this.setState({
             modal: !this.state.modal,
             destination:dest,
-            id:id
+            idnum:id
         });
     }
     deltoggle() {
         API.delete(this.state.destination,this.state.token);
         this.mtoggle();
-        let events = {...this.state.events};
-        for (var e in events){
-            if (events[e].id == this.state.id){
-                let index = events.findIndex(events[e]);
-                events.splice(index,1);
-                this.setState({events:events});
-            }
-        } 
+        let newevents = [...this.state.events];
+        let index = this.state.events.findIndex( e => e.id === this.state.idnum );
+        newevents.splice(index,1);
+        console.log(newevents === this.state.events);
+        this.setState({events:newevents});
 
-        fetch(baseAPIURL + "/event/")
-            .then(response => response.json())
-            .then(data => this.setState({ events:data  }));
    }
     componentWillMount(){
         const cookie = this.getCookie("token");
@@ -101,6 +97,8 @@ export default class EventsAdmin extends Component {
             }
             API.post(destination,this.state.token,payload);
             break;
+        default:
+            console.log("should never happen admin even line 104");
         }
             //sets state to re render component
             fetch(baseAPIURL + "/event/")
@@ -114,67 +112,6 @@ export default class EventsAdmin extends Component {
 
 
     render(){
-        let renderevents = null;
-        if(this.state.events){
-            renderevents = this.state.events.map( e =>
-                <Col sm="12" key={e.id} className="border-bottom mb-5" >
-                    <Col sm="12" className=""  >
-                      <label>Event Title:</label>
-                      <input
-                        value={e.event_title}
-                        className="form-control"
-                        onChange={(event) => this.handleChange(event,"eventTitle")}/>
-                    </Col>
-                   <Row className="ml-0 mr-0"> 
-
-                    <Col sm="12" md="4" className="" >
-                      <label>Start Date:</label>
-                      <input
-                        value={e.event_start_date}
-                        className="form-control"
-                        onChange={(event) => this.handleChange(event,"eventStartDate")}
-                        type="date"/>
-                    </Col>
-                    
-                    <Col sm="12" md="4" className="">
-                      <label>Time:</label>
-                      <input
-                        value={e.event_start_time}
-                        placeholder="10:00 am"
-                        className="form-control"
-                        onChange={(event) => this.handleChange(event,"eventStartTime")}/>
-                    </Col>
-                                                  </Row>
-                                                  <Row className="ml-0 mr-0"> 
-                    <Col sm="12" md="4" className="">
-                      <label>End Date:</label>
-                      <input
-                        value={e.event_end_date}
-                        className="form-control"
-                        onChange={(event) => this.handleChange(event,"eventEndDate")}
-                                    type="date"/>
-                    </Col>
-                    <Col sm="12" md="4" className="">
-                      <label>End Time:</label>
-                      <input
-                        value={e.event_end_time}
-                        className="form-control"
-                        onChange={(event) => this.handleChange(event,"eventEndTime")}
-                        placeholder="4:00 pm"/>
-                    </Col>
-                                                  </Row>
-                                                  <Col sm="12"  className="p-5">
-                  <RichTextEditor
-                    post={this.quickAdd}
-                    deleteBool={true}
-                    del={this.mtoggle}
-                    key={e.id}
-                    description={e.press_raw}
-                    destination={"event/" + e.id}/>
-                                                  </Col>
-                </Col>
-            )
-        }
 
         return(
             <Container>
@@ -244,7 +181,65 @@ export default class EventsAdmin extends Component {
                 <h2 >Edit or delete an Event</h2>
                 </Col>
                 <div>
-                  {renderevents}
+                  {            this.state.events.map( e =>
+                <Col sm="12" key={e.id} className="border-bottom mb-5" >
+                    <Col sm="12" className=""  >
+                      <label>Event Title:</label>
+                      <input
+                        value={e.event_title}
+                        className="form-control"
+                        onChange={(event) => this.handleChange(event,"eventTitle")}/>
+                    </Col>
+                   <Row className="ml-0 mr-0"> 
+
+                    <Col sm="12" md="4" className="" >
+                      <label>Start Date:</label>
+                      <input
+                        value={e.event_start_date}
+                        className="form-control"
+                        onChange={(event) => this.handleChange(event,"eventStartDate")}
+                        type="date"/>
+                    </Col>
+                    
+                    <Col sm="12" md="4" className="">
+                      <label>Time:</label>
+                      <input
+                        value={e.event_start_time}
+                        placeholder="10:00 am"
+                        className="form-control"
+                        onChange={(event) => this.handleChange(event,"eventStartTime")}/>
+                    </Col>
+                                                  </Row>
+                                                  <Row className="ml-0 mr-0"> 
+                    <Col sm="12" md="4" className="">
+                      <label>End Date:</label>
+                      <input
+                        value={e.event_end_date}
+                        className="form-control"
+                        onChange={(event) => this.handleChange(event,"eventEndDate")}
+                                    type="date"/>
+                    </Col>
+                    <Col sm="12" md="4" className="">
+                      <label>End Time:</label>
+                      <input
+                        value={e.event_end_time}
+                        className="form-control"
+                        onChange={(event) => this.handleChange(event,"eventEndTime")}
+                        placeholder="4:00 pm"/>
+                    </Col>
+                                                  </Row>
+                                                  <Col sm="12"  className="p-5">
+                  <RichTextEditor
+                    post={this.quickAdd}
+                    deleteBool={true}
+                    del={this.mtoggle}
+                    id={e.id}
+                    description={e.press_raw}
+                    destination={"event/" + e.id}/>
+                                                  </Col>
+                </Col>
+            )
+}
                 </div>
               </Row>
             </Container>

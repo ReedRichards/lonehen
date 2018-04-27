@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-
-
 import { Container, Row, Col , Button} from 'reactstrap';
 import RichTextEditor from '../../RichTextEditor/RichTextEditor.js';
-import LoneAPi from '../../../loneApi.js';
 
-const API = new LoneAPi();
 const baseAPIURL ='http://api.bvzzdesign.com/lonehen';
 
 export default class AdminShop extends Component{
@@ -56,8 +52,11 @@ export default class AdminShop extends Component{
                               </Col>
                               <div className="form-group">
                                 <label>Upoload an Image:</label>
-                                         <img src={s.image}/>
+                                         <img alt= "shop"src={s.image}/>
+
+                                         {/* TODO  add proper alts*/}
                                 <input
+                                  alt="shop"
                                   onChange={(event) => this.fileChangedHandler(event,"shopImage")}
                                   className="form-control"
                                   type="file"/>

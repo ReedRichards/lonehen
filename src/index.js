@@ -17,6 +17,7 @@ import AdminShop from './Containers/Admin/AdminShop/AdminShop.js';
 import AdminBlog from './Containers/Admin/AdminBlog/AdminBlog.js';
 import EventsAdmin from './Containers/Admin/Events/Events.js';
 import AdminNav from './Components/AdminNav/AdminNav.js';
+import Test from './Containers/test.js';
 
 
 ReactDOM.render((
@@ -24,6 +25,7 @@ ReactDOM.render((
       <div>
         <Route path="/admin" component={AdminNav}/>
         <Switch >
+          <Route exact path="/test" component={Test}/>
           <Route exact path="/admin/shop" component={AdminShop}/>
           <Route exact path="/admin/blog" component={AdminBlog}/>
           <Route exact path="/admin/events" component={EventsAdmin}/>
