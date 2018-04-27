@@ -57,7 +57,7 @@ export default class EventsAdmin extends PureComponent {
             .then(response => response.json())
             .then(data => this.setState({ events:data  }));
     }
-        quickAdd= (rawvalue,value,destination)=>{
+    quickAdd= (rawvalue,value,destination)=>{
         let payload ={};
 
         switch(destination){

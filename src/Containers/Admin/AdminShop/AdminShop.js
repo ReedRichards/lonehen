@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { Container, Row, Col , Button} from 'reactstrap';
 import RichTextEditor from '../../RichTextEditor/RichTextEditor.js';
 
 const baseAPIURL ='http://api.bvzzdesign.com/lonehen';
 
-export default class AdminShop extends Component{
+export default class AdminShop extends PureComponent{
     constructor(props){
         super(props);
         this.state={store:false};
@@ -41,7 +41,6 @@ export default class AdminShop extends Component{
         let store=null;
         if(this.state.store){
             store = this.state.store.map(s =>
-
                             <Col sm="12">
                               <Col sm="12" md="6" >
                                 <label>Item Name:</label>
@@ -53,7 +52,6 @@ export default class AdminShop extends Component{
                               <div className="form-group">
                                 <label>Upoload an Image:</label>
                                          <img alt= "shop"src={s.image}/>
-
                                          {/* TODO  add proper alts*/}
                                 <input
                                   alt="shop"

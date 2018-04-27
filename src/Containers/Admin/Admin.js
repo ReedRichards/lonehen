@@ -137,7 +137,7 @@ class Admin extends Component{
             break;
 
         default:
-            console.log("should never happen admin line 140")
+            console.log("should never happen admin line 140"); 
         }
         
         this.mtoggle();
