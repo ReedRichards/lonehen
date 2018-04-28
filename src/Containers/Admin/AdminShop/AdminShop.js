@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
-import { Container, Row, Col, Button } from "reactstrap";
 import RichTextEditor from "../../RichTextEditor/RichTextEditor.js";
+import { Container, Row, Col, Button } from "reactstrap";
+import AdminShopItem from "./AdminShopItem/AdminShopItem.js";
+import AdminShopSubmit from "./AdminShopSubmit/AdminShopSubmit.js";
 
 const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
 
@@ -9,6 +11,7 @@ export default class AdminShop extends PureComponent {
     super(props);
     this.state = { store: false };
     this.fileChangedHandler = this.fileChangedHandler.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   fileChangedHandler(event) {
     const file = event.target.files[0];
@@ -18,6 +21,9 @@ export default class AdminShop extends PureComponent {
       this.setState({ pressImage: reader.result });
     };
     reader.readAsDataURL(file);
+  }
+  handleChange(event, key) {
+    this.setState({ [key]: event.target.value });
   }
   componentWillMount() {
     const cookie = this.getCookie("token");
@@ -44,68 +50,26 @@ export default class AdminShop extends PureComponent {
     let store = null;
     if (this.state.store) {
       store = this.state.store.map(s => (
-        <Col sm="12">
-          <Col sm="12" md="6">
-            <label>Item Name:</label>
-            <input
-              className="form-control"
-              value={s.name}
-              onChange={event => this.handleChange(event, "shopName")}
-            />
-          </Col>
-          <div className="form-group">
-            <label>Upoload an Image:</label>
-            <img alt="shop" src={s.image} />
-            {/* TODO  add proper alts*/}
-            <input
-              alt="shop"
-              onChange={event => this.fileChangedHandler(event, "shopImage")}
-              className="form-control"
-              type="file"
-            />
-          </div>
-          <Col sm="12" md="6">
-            <label>Quantity:</label>
-            <input
-              className="form-control"
-              value={s.quantity}
-              onChange={event => this.handleChange(event, "shopQuantity")}
-              type="number"
-            />
-          </Col>
-          <Col sm="12" md="6">
-            <label>Price:</label>
-            <input
-              className="form-control"
-              onChange={event => this.handleChange(event, "shopPrice")}
-              type="number"
-              value={s.price}
-              min="0.01"
-              step="0.01"
-              max="2500"
-            />
-          </Col>
-          <Col sm="12" md="6">
-            <label>Category:</label>
-            <input
-              value={s.category}
-              className="form-control"
-              onChange={event => this.handleChange(event, "shopCategory")}
-            />
-          </Col>
-          <RichTextEditor
-            post={this.quickAdd}
-            deleteBool={true}
-            description={s.raw_description}
-            destination={"shop/" + s.id}
-          />
-        </Col>
+        <AdminShopItem
+          key={s.id}
+          name={s.name}
+          image={s.image}
+          price={s.price}
+          category={s.category}
+          description={s.description}
+          raw_description={s.raw_description}
+          handleChange={this.handleChange}
+        />
       ));
     }
     return (
       <Container>
-        <h2>Edit or delete posts</h2>
-        <div>{store}</div>
+        <Row>
+          <h2>Sumbmit new item</h2>
+          <AdminShopSubmit />
+          <h2>Edit or delete posts</h2>
+          <div>{store}</div>
+        </Row>
       </Container>
     );
   }
