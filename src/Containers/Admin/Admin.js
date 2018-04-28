@@ -9,7 +9,7 @@ import { Alert } from 'reactstrap';
 
 
 const API = new LoneAPi();
-class Admin extends Component{
+class  Admin extends Component{
     constructor(props){
         super(props);
         this.toggle = this.toggle.bind(this);
