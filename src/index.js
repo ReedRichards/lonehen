@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./Containers/HomePage/HomePage.js";
 import Login from "./Containers/Login/Login.js";
 import Events from "./Components/Events/Events.js";
+import Shop from "./Containers/Shop/Shop.js";
+import EventsDetail from "./Components/Events/EventDetail/EventDetail.js";
 import HomeNav from "./Components/HomeNav/HomeNav.js";
 import MakersNotes from "./Components/MakersNotes/MakersNotes.js";
 import Blog from "./Components/Blog/Blog.js";
@@ -33,7 +35,9 @@ ReactDOM.render(
         <Route path="/" component={HomeNav} />
       </Switch>
       <Route exact path="/" component={HomePage} />
+      <Route exact path="/events/:id" component={EventsDetail} />
       <Route exact path="/events" component={Events} />
+      <Route exact path="/shop" component={Shop} />
       <Route exact path="/makers-notes" component={MakersNotes} />
       <Route exact path="/blog" component={Blog} />
     </div>

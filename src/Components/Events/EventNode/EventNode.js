@@ -1,25 +1,52 @@
-
-import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
-const EventNode = (props) =>{
-    return(
-        <Container className="pad-60">
-          <Row >
-            <Col md="2" >
-              <div className="datebox">
-                <div>Apr</div>
-                <div>14</div>
-              </div>
+import React from "react";
+import { Container, Row, Col } from "reactstrap";
+const EventNode = props => {
+  return (
+    <Container className="pad-60 serif">
+      <Row>
+        <Col md="2">
+          <div className="dflex flex-column justify-content center datebox pd-5">
+            <Col className="text-center">
+              {" "}
+              {new Date(props.startDate)
+                .toLocaleString("en-us", {
+                  month: "short"
+                })
+                .toUpperCase()}
             </Col>
-            <Col md="10" >
-              <h3 >{props.title}</h3>
-              <p > {new Date(props.startDate).toLocaleString("en-us",{month:"short"})} - {new Date(props.endDate).toLocaleString("en-us",{month:"short"})} </p>
-              <p >{props.startTime} - {props.endTime}</p>
-              <div dangerouslySetInnerHTML={{__html: props.details}} />
+            <Col className="text-center">
+              {" "}
+              {new Date(props.startDate).toLocaleString("en-us", {
+                day: "numeric"
+              })}
             </Col>
-          </Row>
-        </Container>
-
-    )
-}
+          </div>
+        </Col>
+        <Col md="10">
+          <h2>{props.title}</h2>
+          <h4>
+            {" "}
+            {new Date(props.startDate).toLocaleString("en-us", {
+              weekday: "long",
+              month: "short",
+              day: "numeric",
+              year: "numeric"
+            })}{" "}
+            -{" "}
+            {new Date(props.endDate).toLocaleString("en-us", {
+              weekday: "long",
+              month: "short",
+              day: "numeric",
+              year: "numeric"
+            })}{" "}
+          </h4>
+          <p>
+            {props.startTime} - {props.endTime}
+          </p>
+          <div dangerouslySetInnerHTML={{ __html: props.details }} />
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 export default EventNode;
