@@ -22,6 +22,11 @@ export default class HomeNav extends React.Component {
       isOpen: false
     };
   }
+
+  test() {
+    console.log("test");
+  }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -79,6 +84,10 @@ export default class HomeNav extends React.Component {
                   </Link>
                   <Link to="/shop/accessories">
                     <DropdownItem>Accessories</DropdownItem>
+                  </Link>
+                  <DropdownItem onClick={this.props.ctoggle}>Cart</DropdownItem>
+                  <Link to="/shop/checkout">
+                    <DropdownItem>Checkouy</DropdownItem>
                   </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>

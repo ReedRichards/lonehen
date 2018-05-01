@@ -8,6 +8,7 @@ import HomePage from "./Containers/HomePage/HomePage.js";
 import Login from "./Containers/Login/Login.js";
 import Events from "./Components/Events/Events.js";
 import Shop from "./Containers/Shop/Shop.js";
+import ShopDetail from "./Containers/Shop/ShopDetail/ShopDetail.js";
 import EventsDetail from "./Components/Events/EventDetail/EventDetail.js";
 import HomeNav from "./Components/HomeNav/HomeNav.js";
 import MakersNotes from "./Components/MakersNotes/MakersNotes.js";
@@ -19,6 +20,7 @@ import AdminShop from "./Containers/Admin/AdminShop/AdminShop.js";
 import AdminBlog from "./Containers/Admin/AdminBlog/AdminBlog.js";
 import EventsAdmin from "./Containers/Admin/Events/Events.js";
 import AdminNav from "./Components/AdminNav/AdminNav.js";
+import Cart from "./Cart.js";
 
 ReactDOM.render(
   <Router>
@@ -32,14 +34,12 @@ ReactDOM.render(
         <Route exact path="/admin/home" component={Home} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/login" component={Login} />
-        <Route path="/" component={HomeNav} />
       </Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route exact path="/events/:id" component={EventsDetail} />
-      <Route exact path="/events" component={Events} />
-      <Route exact path="/shop" component={Shop} />
-      <Route exact path="/makers-notes" component={MakersNotes} />
-      <Route exact path="/blog" component={Blog} />
+      <Cart>
+        <Route path="/" component={Cart} />
+        {/*
+             */}
+      </Cart>
     </div>
   </Router>,
   document.getElementById("root")

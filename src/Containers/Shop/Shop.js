@@ -26,16 +26,21 @@ class Shop extends Component {
         <Row>
           {shop
             .map(s => (
-              <ShopItem
-                key={s.id}
-                name={s.name}
-                image={s.image}
-                quantity={s.quantity}
-                price={s.price}
-                category={s.category}
-                description={s.description}
-                raw_description={s.raw_description}
-              />
+              <Col xs="12" md="4">
+                <ShopItem
+                  key={s.id}
+                  id={s.id}
+                  shop={s}
+                  name={s.name}
+                  image={s.image}
+                  quantity={s.quantity}
+                  price={s.price}
+                  category={s.category}
+                  description={s.description}
+                  raw_description={s.raw_description}
+                  add={this.props.add}
+                />
+              </Col>
             ))
             .reverse()}
         </Row>

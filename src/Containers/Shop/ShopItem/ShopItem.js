@@ -1,18 +1,36 @@
 import React from "react";
-import { Card, CardImg, CardText, CardBody,
-         CardTitle, CardSubtitle, Button } from 'reactstrap';
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button,
+  Badge
+} from "reactstrap";
+import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 const ShopItem = props => {
   return (
-      <Card >
-        <CardImg top width="100%" src={props.image} alt="Card image cap" />
-        <CardBody>
-          <CardTitle>{props.name}</CardTitle>
-          <CardText>{props.description}</CardText>
-          <Button>Add to Cart</Button>
-          <Button>View Details</Button>
-        </CardBody>
-      </Card>
+    <Card className="border-0">
+      <h3>
+        <Badge color="primary">${props.price}</Badge>
+      </h3>
+      <CardImg top width="100%" src={props.image} alt="Card image cap" />
+      <CardBody>
+        <CardTitle>{props.name}</CardTitle>
+        <CardText>
+          <div dangerouslySetInnerHTML={{ __html: props.description }} />
+        </CardText>
+        <Link to={"/shop/" + props.name + "/" + props.id}>
+          <Button color="secondary">View Detials</Button>
+        </Link>{" "}
+        <Button onClick={() => props.add(props.shop)} color="primary">
+          Add to Cart
+        </Button>
+      </CardBody>
+    </Card>
   );
 };
 export default ShopItem;

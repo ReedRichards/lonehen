@@ -67,8 +67,10 @@ const adminShopItem = props => {
         <RichTextEditor
           post={props.quickAdd}
           deleteBool={true}
+          del={props.mtoggle}
           description={props.raw_description}
           destination={"shop/" + props.id}
+          id={props.id}
         />
       </Col>
     </Col>
