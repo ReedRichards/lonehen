@@ -6,13 +6,6 @@ import registerServiceWorker from "./registerServiceWorker";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./Containers/HomePage/HomePage.js";
 import Login from "./Containers/Login/Login.js";
-import Events from "./Components/Events/Events.js";
-import Shop from "./Containers/Shop/Shop.js";
-import ShopDetail from "./Containers/Shop/ShopDetail/ShopDetail.js";
-import EventsDetail from "./Components/Events/EventDetail/EventDetail.js";
-import HomeNav from "./Components/HomeNav/HomeNav.js";
-import MakersNotes from "./Components/MakersNotes/MakersNotes.js";
-import Blog from "./Components/Blog/Blog.js";
 import Admin from "./Containers/Admin/Admin.js";
 import Home from "./Containers/Admin/Home/Home.js";
 import Press from "./Containers/Admin/Press/Press.js";
@@ -21,26 +14,27 @@ import AdminBlog from "./Containers/Admin/AdminBlog/AdminBlog.js";
 import EventsAdmin from "./Containers/Admin/Events/Events.js";
 import AdminNav from "./Components/AdminNav/AdminNav.js";
 import Cart from "./Cart.js";
+import { StripeProvider } from "react-stripe-elements";
 
 ReactDOM.render(
   <Router>
-    <div>
-      <Route path="/admin" component={AdminNav} />
-      <Switch>
-        <Route exact path="/admin/shop" component={AdminShop} />
-        <Route exact path="/admin/blog" component={AdminBlog} />
-        <Route exact path="/admin/events" component={EventsAdmin} />
-        <Route exact path="/admin/press" component={Press} />
-        <Route exact path="/admin/home" component={Home} />
-        <Route exact path="/admin" component={Admin} />
-        <Route exact path="/login" component={Login} />
-      </Switch>
-      <Cart>
-        <Route path="/" component={Cart} />
+    <StripeProvider apiKey="pk_test_VPmvIXc8CykseKNSKW8Y6vEj">
+      <div>
+        <Route path="/admin" component={AdminNav} />
+        <Switch>
+          <Route exact path="/admin/shop" component={AdminShop} />
+          <Route exact path="/admin/blog" component={AdminBlog} />
+          <Route exact path="/admin/events" component={EventsAdmin} />
+          <Route exact path="/admin/press" component={Press} />
+          <Route exact path="/admin/home" component={Home} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/login" component={Login} />
+          <Route path="/" component={Cart} />
+        </Switch>
         {/*
              */}
-      </Cart>
-    </div>
+      </div>
+    </StripeProvider>
   </Router>,
   document.getElementById("root")
 );
