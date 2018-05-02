@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
-import RichTextEditor from "../../RichTextEditor/RichTextEditor.js";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Button } from "reactstrap";
 import AdminShopItem from "./AdminShopItem/AdminShopItem.js";
 import AdminShopSubmit from "./AdminShopSubmit/AdminShopSubmit.js";
 import { Alert, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";

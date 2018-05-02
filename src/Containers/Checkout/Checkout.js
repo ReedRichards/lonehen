@@ -3,7 +3,7 @@ import { Elements } from "react-stripe-elements";
 
 import InjectedCheckoutForm from "./InjectedCheckoutForm/InjectedCheckoutForm.js";
 
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 export default class Checkout extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +29,7 @@ export default class Checkout extends Component {
             return (
               <Col className="d-flex flex-row" sm="12">
                 <Col sm="4">
-                  <img className="img-fluid" src={i.image} />
+                  <img className="img-fluid" src={i.image} alt={i.name} />
                 </Col>
                 <Col sm="4">{i.name}</Col>
                 <Col sm="4">{i.amount}</Col>

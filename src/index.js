@@ -4,7 +4,6 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import registerServiceWorker from "./registerServiceWorker";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import HomePage from "./Containers/HomePage/HomePage.js";
 import Login from "./Containers/Login/Login.js";
 import Admin from "./Containers/Admin/Admin.js";
 import Home from "./Containers/Admin/Home/Home.js";

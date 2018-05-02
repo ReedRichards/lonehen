@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import RichTextEditor from "../../../RichTextEditor/RichTextEditor.js";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 
 import { Alert, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import LoneAPi from "../../../../loneApi.js";

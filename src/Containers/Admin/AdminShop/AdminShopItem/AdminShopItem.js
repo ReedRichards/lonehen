@@ -1,14 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Button } from "reactstrap";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle
-} from "reactstrap";
-
+import { Col } from "reactstrap";
 import RichTextEditor from "../../../RichTextEditor/RichTextEditor.js";
 
 const adminShopItem = props => {

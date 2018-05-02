@@ -462,6 +462,8 @@ class RichTextExample extends React.Component {
         return <li {...attributes}>{children}</li>;
       case "numbered-list":
         return <ol {...attributes}>{children}</ol>;
+      default:
+        console.log("should never happen rich text line 466");
     }
   };
 
@@ -483,6 +485,8 @@ class RichTextExample extends React.Component {
         return <em>{children}</em>;
       case "underlined":
         return <u>{children}</u>;
+      default:
+        console.log("should never happen but does line 489 richtexteditor");
     }
   };
 }

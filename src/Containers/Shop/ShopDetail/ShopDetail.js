@@ -30,7 +30,11 @@ export default class ShopDetail extends Component {
       <Container>
         <Row>
           <Col sm="12" md="6">
-            <img className="img-fluid" src={this.state.store.image} />
+            <img
+              className="img-fluid"
+              src={this.state.store.image}
+              alt="placeholoder"
+            />
           </Col>
           <Col
             sm="12"

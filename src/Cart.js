@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { Container, Row, Col, Button } from "reactstrap";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { render } from "react-router";
+import { Modal, ModalHeader, ModalFooter } from "reactstrap";
+import { Col, Button } from "reactstrap";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./Containers/HomePage/HomePage.js";
-import Login from "./Containers/Login/Login.js";
 import Events from "./Components/Events/Events.js";
 import Shop from "./Containers/Shop/Shop.js";
 import ShopDetail from "./Containers/Shop/ShopDetail/ShopDetail.js";
@@ -12,12 +10,8 @@ import EventsDetail from "./Components/Events/EventDetail/EventDetail.js";
 import HomeNav from "./Components/HomeNav/HomeNav.js";
 import MakersNotes from "./Components/MakersNotes/MakersNotes.js";
 import Blog from "./Components/Blog/Blog.js";
-import Admin from "./Containers/Admin/Admin.js";
-import Home from "./Containers/Admin/Home/Home.js";
-import Press from "./Containers/Admin/Press/Press.js";
 import Checkout from "./Containers/Checkout/Checkout.js";
 
-const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
 export default class Cart extends Component {
   constructor(props) {
     super(props);

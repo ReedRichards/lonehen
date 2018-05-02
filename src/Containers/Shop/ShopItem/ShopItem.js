@@ -5,12 +5,10 @@ import {
   CardText,
   CardBody,
   CardTitle,
-  CardSubtitle,
   Button,
   Badge
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
 const ShopItem = props => {
   return (
     <Card className="border-0">

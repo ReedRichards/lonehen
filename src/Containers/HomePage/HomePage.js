@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 
 import HomeCarousel from "../../Containers/HomeCarousel/HomeCarousel.js";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from "reactstrap";
+import { Card, CardImg, CardText, CardBody, Button } from "reactstrap";
 import { Container, Row, Col } from "reactstrap";
 
 const baseAPIURL = "http://api.bvzzdesign.com/lonehen";

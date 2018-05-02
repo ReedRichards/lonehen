@@ -2,7 +2,7 @@ import React from "react";
 import { injectStripe } from "react-stripe-elements";
 import { CardElement } from "react-stripe-elements";
 
-import { Container, Row, Col, Button } from "reactstrap";
+import { Col, Button } from "reactstrap";
 
 const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
 class CheckoutForm extends React.Component {
