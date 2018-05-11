@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, ModalHeader, ModalFooter } from "reactstrap";
-import { Col, Button } from "reactstrap";
+import { Col, Button, Table } from "reactstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./Containers/HomePage/HomePage.js";
 import Events from "./Components/Events/Events.js";
@@ -22,6 +22,7 @@ export default class Cart extends Component {
 
     this.ctoggle = this.ctoggle.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.changeQuant = this.changeQuant.bind(this);
   }
 
   ctoggle() {
@@ -31,10 +32,29 @@ export default class Cart extends Component {
   }
   addToCart(id) {
     let cart = [...this.state.cart];
-    id.amount = 1;
-    cart.push(id);
+    if (!cart.includes(id)) {
+      id.amount = 1;
+      cart.push(id);
+    }
 
     this.setState({ cart: cart });
+  }
+  changeQuant(id, mod) {
+    const oldstate = [...this.state.cart];
+    const found = oldstate.find(element => {
+      if (element.id === id) {
+        return element;
+      }
+    });
+    const index = oldstate.indexOf(found);
+    if (mod === "plus") {
+      found.amount++;
+    } else if (mod === "minus") {
+      if (found.amount > 1) {
+        found.amount--;
+      }
+    }
+    this.setState({ cart: oldstate });
   }
   render() {
     return (
@@ -44,26 +64,58 @@ export default class Cart extends Component {
           toggle={this.ctoggle}
           className="modal-lg"
         >
-          <ModalHeader toggle={this.ctoggle}>Modal title</ModalHeader>
-          {this.state.cart.map(c => (
-            <div>
-              <Col sm="12">{c.name}</Col>
-              <hr />
-              <Col sm="12" className="d-flex flex-row">
-                <Col sm="3">
-                  <i className="fas fa-minus" /> {c.amount}{" "}
-                  <i className="fas fa-plus" />
-                </Col>
-                <Col className="text-right" sm="3">
-                  {c.price}
-                </Col>
-                <Col sm="1">
+          <ModalHeader toggle={this.ctoggle}>Your Cart</ModalHeader>
+          <Table>
+            <thead>
+              <th>Product</th>
+              <th>Quanity</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+            </thead>
+            <tbody>
+              {this.state.cart.map(c => (
+                <tr>
+                  <td>{c.name}</td>
+                  <td>
+                    {" "}
+                    <i
+                      className="fas fa-minus"
+                      onClick={() => this.changeQuant(c.id, "minus")}
+                    />{" "}
+                    {c.amount}{" "}
+                    <i
+                      className="fas fa-plus"
+                      onClick={() => this.changeQuant(c.id, "plus")}
+                    />
+                  </td>
+                  <td>{c.price}</td>
+                  <td> {(c.price * c.amount).toFixed(2)}</td>
                   <i className="fas fa-times" />
-                </Col>
-              </Col>
-              <hr />
-            </div>
-          ))}
+                </tr>
+              ))}
+              <tr>
+                <td />
+                <td />
+                <th>Total:</th>
+                <td>
+                  {/* not super sure that this is readable so in case i ever come
+              back to it, this is a ternary expression that evalutates whether
+             or not the length of the array of this.cart is greater or one,
+             which it wont be until someone add an item to the cart.  if the
+             length is greater than 0, take the sum of all cart items price and
+             and amount and return that.  that, 0 needs to be there so that an
+             object is not returned from the reducer, and that also needs to be
+             a fixed decimal to two places, hence the two fixed, if the cart
+             has no items return null*/}
+                  {this.state.cart.length > 0
+                    ? this.state.cart
+                        .reduce((acc, val) => acc + val.price * val.amount, 0)
+                        .toFixed(2)
+                    : null}
+                </td>
+              </tr>
+            </tbody>
+          </Table>
           <ModalFooter>
             <Button color="primary" onClick={this.ctoggle}>
               Checkout

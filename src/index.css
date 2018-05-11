@@ -72,10 +72,13 @@ body {
     opacity:.3; 
     color:#333;
 }
-@media (max-width: 768px) {
-
-    max-height:60vh;
-}
 .shop-admin-image{
     max-height:30vh;
+}
+.press-image{
+    max-height:30vh;
+}
+.checkout-image{
+    height:50px;
+    width:50px;
 }

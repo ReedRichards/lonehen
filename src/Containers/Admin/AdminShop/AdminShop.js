@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { Container, Row, Button } from "reactstrap";
-import AdminShopItem from "./AdminShopItem/AdminShopItem.js";
+import { Col } from "reactstrap";
+import RichTextEditor from "../../RichTextEditor/RichTextEditor.js";
 import AdminShopSubmit from "./AdminShopSubmit/AdminShopSubmit.js";
 import { Alert, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import LoneAPi from "../../../loneApi.js";
@@ -74,18 +75,67 @@ export default class AdminShop extends PureComponent {
     let store = null;
     if (this.state.store) {
       store = this.state.store.map(s => (
-        <AdminShopItem
-          key={s.id}
-          id={s.id}
-          name={s.name}
-          image={s.image}
-          price={s.price}
-          category={s.category}
-          description={s.description}
-          raw_description={s.raw_description}
-          handleChange={this.handleChange}
-          mtoggle={this.mtoggle}
-        />
+        <Col key={s.id} sm="12" className="mt-5  border-top">
+          <Col sm="12" md="6" className="mt-5">
+            <label>Item Name:</label>
+            <input
+              className="form-control"
+              value={s.name}
+              onChange={event => this.handleChange(event, "shopName")}
+            />
+          </Col>
+          <Col sm="12" md="6">
+            <label>Upoload an Image:</label>
+            <img className="shop-admin-image" alt="shop" src={s.image} />
+            {/* TODO  add proper alts*/}
+            <input
+              alt="shop"
+              onChange={event => this.fileChangedHandler(event, "shopImage")}
+              className="form-control"
+              type="file"
+            />
+          </Col>
+          <Col sm="12" md="6">
+            <label>Quantity:</label>
+            <input
+              className="form-control"
+              value={s.quantity}
+              onChange={event => this.handleChange(event, "shopQuantity")}
+              type="number"
+            />
+          </Col>
+          <Col sm="12" md="6">
+            <label>Price:</label>
+            <input
+              className="form-control"
+              onChange={event => this.handleChange(event, "shopPrice")}
+              type="number"
+              value={s.price}
+              min="0.01"
+              step="0.01"
+              max="2500"
+            />
+          </Col>
+          <Col sm="12" md="6">
+            <label>Category:</label>
+            <input
+              value={s.category}
+              className="form-control"
+              onChange={event => this.handleChange(event, "shopCategory")}
+            />
+          </Col>
+
+          <Col sm="12" className="pd-5">
+            <RichTextEditor
+              post={this.quickAdd}
+              deleteBool={true}
+              del={this.mtoggle}
+              description={s.raw_description}
+              destination={"shop/" + s.id}
+              id={s.id}
+            />
+          </Col>
+        </Col>
       ));
     }
     return (
@@ -113,10 +163,8 @@ export default class AdminShop extends PureComponent {
         </Modal>
 
         <Row>
-          <h2>Sumbmit new item</h2>
-          <AdminShopSubmit />
           <h2>Edit or delete posts</h2>
-          <div>{store}</div>
+          {store}
         </Row>
       </Container>
     );

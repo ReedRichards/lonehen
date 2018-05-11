@@ -52,7 +52,7 @@ const rules = [
       }
     },
     serialize(obj, children) {
-      if (obj.object === "block") {
+      if (obj.object == "block") {
         switch (obj.type) {
           case "paragraph":
             return <p>{children}</p>;
@@ -83,7 +83,7 @@ const rules = [
       }
     },
     serialize(obj, children) {
-      if (obj.object === "mark") {
+      if (obj.object == "mark") {
         switch (obj.type) {
           case "bold":
             return <strong>{children}</strong>;
@@ -130,7 +130,7 @@ class RichTextExample extends React.Component {
   getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
-    if (parts.length === 2)
+    if (parts.length == 2)
       return parts
         .pop()
         .split(";")
@@ -151,7 +151,7 @@ class RichTextExample extends React.Component {
 
   hasMark = type => {
     const { value } = this.state;
-    return value.activeMarks.some(mark => mark.type === type);
+    return value.activeMarks.some(mark => mark.type == type);
   };
 
   /**
@@ -163,7 +163,7 @@ class RichTextExample extends React.Component {
 
   hasBlock = type => {
     const { value } = this.state;
-    return value.blocks.some(node => node.type === type);
+    return value.blocks.some(node => node.type == type);
   };
 
   /**
@@ -248,7 +248,7 @@ class RichTextExample extends React.Component {
       // Handle the extra wrapping required for list buttons.
       const isList = this.hasBlock("list-item");
       const isType = value.blocks.some(block => {
-        return !!document.getClosest(block.key, parent => parent.type === type);
+        return !!document.getClosest(block.key, parent => parent.type == type);
       });
 
       if (isList && isType) {
@@ -259,7 +259,7 @@ class RichTextExample extends React.Component {
       } else if (isList) {
         change
           .unwrapBlock(
-            type === "bulleted-list" ? "numbered-list" : "bulleted-list"
+            type == "bulleted-list" ? "numbered-list" : "bulleted-list"
           )
           .wrapBlock(type);
       } else {
@@ -373,7 +373,7 @@ class RichTextExample extends React.Component {
   renderMarkButton = (type, icon) => {
     const isActive = this.hasMark(type);
     let bg = "";
-    if (isActive === true) {
+    if (isActive == true) {
       bg = "bg-primary";
     }
     const onMouseDown = event => this.onClickMark(event, type);
@@ -401,7 +401,7 @@ class RichTextExample extends React.Component {
   renderBlockButton = (type, icon) => {
     const isActive = this.hasBlock(type);
     let bg = "";
-    if (isActive === true) {
+    if (isActive == true) {
       bg = "bg-primary";
     }
     const onMouseDown = event => this.onClickBlock(event, type);

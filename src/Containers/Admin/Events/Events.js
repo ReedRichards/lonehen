@@ -134,56 +134,6 @@ export default class EventsAdmin extends PureComponent {
 
         <Row className="mt-5">
           <Col className="pd-5">
-            <h2>Add New Event</h2>
-          </Col>
-          <Col sm="12" className=" mb-5">
-            <Col sm="12">
-              <label>Event Title:</label>
-              <input
-                className="form-control"
-                onChange={event => this.handleChange(event, "eventTitle")}
-              />
-            </Col>
-
-            <Col sm="12" md="6">
-              <label>Start Date:</label>
-              <input
-                className="form-control"
-                onChange={event => this.handleChange(event, "eventStartDate")}
-                type="date"
-              />
-            </Col>
-
-            <Col sm="12" md="6">
-              <label>Time:</label>
-              <input
-                placeholder="10:00 am"
-                className="form-control"
-                onChange={event => this.handleChange(event, "eventStartTime")}
-              />
-            </Col>
-
-            <Col sm="12" md="6">
-              <label>End Date:</label>
-              <input
-                className="form-control"
-                onChange={event => this.handleChange(event, "eventEndDate")}
-                type="date"
-              />
-            </Col>
-            <Col sm="12" md="6" className="mb-5">
-              <label>Time:</label>
-              <input
-                className="form-control"
-                onChange={event => this.handleChange(event, "eventEndTime")}
-                placeholder="4:00 pm"
-              />
-            </Col>
-            <Col className="pd-5">
-              <RichTextEditor post={this.quickAdd} destination="event" />
-            </Col>
-          </Col>
-          <Col className="pd-5">
             <h2>Edit or delete an Event</h2>
           </Col>
           <div>
@@ -252,7 +202,7 @@ export default class EventsAdmin extends PureComponent {
                     deleteBool={true}
                     del={this.mtoggle}
                     id={e.id}
-                    description={e.press_raw}
+                    description={e.event_raw}
                     destination={"event/" + e.id}
                   />
                 </Col>
