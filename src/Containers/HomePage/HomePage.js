@@ -4,7 +4,7 @@ import HomeCarousel from "../../Containers/HomeCarousel/HomeCarousel.js";
 import { Card, CardImg, CardText, CardBody, Button } from "reactstrap";
 import { Container, Row, Col } from "reactstrap";
 
-const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
+const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 class HomePage extends Component {
   constructor(props) {
     super(props);

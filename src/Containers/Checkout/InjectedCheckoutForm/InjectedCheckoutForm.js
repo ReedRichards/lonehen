@@ -5,7 +5,7 @@ import { CardElement } from "react-stripe-elements";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { Col, Row } from "reactstrap";
 
-const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
+const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);

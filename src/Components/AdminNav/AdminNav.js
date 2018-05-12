@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Collapse,
   Navbar,
@@ -6,9 +6,9 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  } from 'reactstrap';
-import {Link} from 'react-router-dom';
+  NavLink
+} from "reactstrap";
+import { Link } from "react-router-dom";
 
 export default class AdminNav extends React.Component {
   constructor(props) {
@@ -33,33 +33,33 @@ export default class AdminNav extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link  onClick={this.toggle} to="/admin" >
-                  <NavLink >Quick Add</NavLink>
+                <Link onClick={this.toggle} to="/admin">
+                  <NavLink>Quick Add</NavLink>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link to="/admin/home">
-                  <NavLink >Home Page</NavLink>
+                  <NavLink>Home Page</NavLink>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link to="/admin/press">
-                  <NavLink >Press</NavLink>
+                  <NavLink>Press</NavLink>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link to="/admin/events">
-                  <NavLink >Events</NavLink>
+                  <NavLink>Events</NavLink>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link to="/admin/shop">
-                  <NavLink >Shop</NavLink>
+                  <NavLink>Shop</NavLink>
                 </Link>
               </NavItem>
               <NavItem>
                 <Link to="/admin/blog">
-                  <NavLink >Blog</NavLink>
+                  <NavLink>Blog</NavLink>
                 </Link>
               </NavItem>
             </Nav>

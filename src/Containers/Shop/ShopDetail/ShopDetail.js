@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 
-const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
+const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 export default class ShopDetail extends Component {
   constructor(props) {
     super(props);

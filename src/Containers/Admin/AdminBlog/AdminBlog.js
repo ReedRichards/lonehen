@@ -7,7 +7,7 @@ import RichTextEditor from "../../RichTextEditor/RichTextEditor.js";
 import LoneAPi from "../../../loneApi.js";
 
 const API = new LoneAPi();
-const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
+const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 
 export default class AdminBlog extends PureComponent {
   constructor(props) {

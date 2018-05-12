@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import EventNode from "./EventNode/EventNode.js";
 
-const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
+const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 class Events extends Component {
   constructor(props) {
     super(props);
