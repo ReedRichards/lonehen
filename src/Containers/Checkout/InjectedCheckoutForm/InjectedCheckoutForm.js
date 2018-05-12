@@ -7,10 +7,21 @@ import { Col, Row } from "reactstrap";
 
 const baseAPIURL = "http://api.bvzzdesign.com/lonehen";
 class CheckoutForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event, key) {
+    this.setState({ [key]: event.target.value });
+  }
+
   handleSubmit = ev => {
     // We don't want to let default form submission happen here, which would refresh the page.
     ev.preventDefault();
 
+    console.log(this.state);
+    return 0;
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
     const token = this.props.stripe
@@ -43,30 +54,51 @@ class CheckoutForm extends React.Component {
             <Col sm="6">
               <FormGroup>
                 <Label for="firstName">First Name</Label>
-                <Input name="firstName" id="firstName" placeholder="" />
+                <Input
+                  name="firstName"
+                  id="firstName"
+                  onChange={event => this.handleChange(event, "firstName")}
+                />
               </FormGroup>
             </Col>
             <Col sm="6">
               <FormGroup>
                 <Label for="lastName">Last Name</Label>
-                <Input name="lastName" id="lastName" placeholder="" />
+                <Input
+                  onChange={event => this.handleChange(event, "lastName")}
+                  name="lastName"
+                  id="lastName"
+                />
               </FormGroup>
             </Col>
           </Row>
 
           <FormGroup>
             <Label for="exampleEmail">Email</Label>
-            <Input type="email" name="email" id="exampleEmail" placeholder="" />
+            <Input
+              onChange={event => this.handleChange(event, "email")}
+              type="email"
+              name="email"
+              id="exampleEmail"
+            />
           </FormGroup>
 
           <FormGroup>
             <Label for="address1">Address Line 1</Label>
-            <Input name="address1" id="address1" placeholder="" />
+            <Input
+              name="address1"
+              id="address1"
+              onChange={event => this.handleChange(event, "address1")}
+            />
           </FormGroup>
 
           <FormGroup>
             <Label for="address2">Address Line 2 (optional)</Label>
-            <Input name="address2" id="address2" placeholder="" />
+            <Input
+              name="address2"
+              id="address2"
+              onChange={event => this.handleChange(event, "address1")}
+            />
           </FormGroup>
 
           <Row>
