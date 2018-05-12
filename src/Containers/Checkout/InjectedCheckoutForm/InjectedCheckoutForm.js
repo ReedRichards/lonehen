@@ -10,6 +10,9 @@ class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      state: "TX"
+    };
   }
 
   handleChange(event, key) {
@@ -97,7 +100,7 @@ class CheckoutForm extends React.Component {
             <Input
               name="address2"
               id="address2"
-              onChange={event => this.handleChange(event, "address1")}
+              onChange={event => this.handleChange(event, "address2")}
             />
           </FormGroup>
 
@@ -105,7 +108,13 @@ class CheckoutForm extends React.Component {
             <Col sm="6">
               <FormGroup>
                 <Label for="state">State</Label>
-                <Input type="select" name="state" id="state" placeholder="">
+                <Input
+                  type="select"
+                  name="state"
+                  id="state"
+                  onChange={event => this.handleChange(event, "state")}
+                >
+                  <option value="TX">Texas</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -163,7 +172,11 @@ class CheckoutForm extends React.Component {
             <Col sm="6">
               <FormGroup>
                 <Label for="zipCode">Zip</Label>
-                <Input name="zipCode" id="zipCode" placeholder="" />
+                <Input
+                  name="zipCode"
+                  id="zipCode"
+                  onChange={event => this.handleChange(event, "zip")}
+                />
               </FormGroup>
             </Col>
           </Row>
