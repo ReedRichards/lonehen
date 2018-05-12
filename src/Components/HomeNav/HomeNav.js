@@ -73,20 +73,20 @@ export default class HomeNav extends React.Component {
                   Shop
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <Link to="/shop">
+                  <Link to="/shop" onClick={this.toggle}>
                     <DropdownItem>All</DropdownItem>
                   </Link>
-                  <Link to="/shop/wine">
+                  <Link to="/shop/wine" onClick={this.toggle}>
                     <DropdownItem>Wine</DropdownItem>
                   </Link>
-                  <Link to="/shop/glasses">
+                  <Link to="/shop/glasses" onClick={this.toggle}>
                     <DropdownItem>Wine Glasses</DropdownItem>
                   </Link>
-                  <Link to="/shop/accessories">
+                  <Link to="/shop/accessories" onClick={this.toggle}>
                     <DropdownItem>Accessories</DropdownItem>
                   </Link>
                   <DropdownItem onClick={this.props.ctoggle}>Cart</DropdownItem>
-                  <Link to="/shop/checkout">
+                  <Link to="/shop/checkout" onClick={this.toggle}>
                     <DropdownItem>Checkouy</DropdownItem>
                   </Link>
                 </DropdownMenu>

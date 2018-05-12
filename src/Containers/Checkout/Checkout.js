@@ -44,17 +44,34 @@ export default class Checkout extends Component {
                       />
                       {i.name}
                     </td>
-                    <td>{i.amount}</td>
-                    <td>{i.price}</td>
+                    <td>
+                      <i
+                        className="fas fa-minus"
+                        onClick={() => this.props.change(i.id, "minus")}
+                      />{" "}
+                      {i.amount}{" "}
+                      <i
+                        className="fas fa-plus"
+                        onClick={() => this.props.change(i.id, "plus")}
+                      />
+                    </td>
+                    <td>${i.price}</td>
+                    <td>${(i.price * i.amount).toFixed(2)}</td>
                   </tr>
                 );
               })}
+              <tr>
+                <td />
+                <td />
+                <th>Total :</th>
+                <td>{this.props.total}</td>
+              </tr>
             </tbody>
           </Table>
         </Row>
         <Row>
           <Elements>
-            <InjectedCheckoutForm total={this.state.total} />
+            <InjectedCheckoutForm total={this.props.total} />
           </Elements>
         </Row>
       </Container>

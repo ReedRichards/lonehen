@@ -88,8 +88,8 @@ export default class Cart extends Component {
                       onClick={() => this.changeQuant(c.id, "plus")}
                     />
                   </td>
-                  <td>{c.price}</td>
-                  <td> {(c.price * c.amount).toFixed(2)}</td>
+                  <td>${c.price}</td>
+                  <td> ${(c.price * c.amount).toFixed(2)}</td>
                   <i className="fas fa-times" />
                 </tr>
               ))}
@@ -107,7 +107,7 @@ export default class Cart extends Component {
              object is not returned from the reducer, and that also needs to be
              a fixed decimal to two places, hence the two fixed, if the cart
              has no items return null*/}
-                  {this.state.cart.length > 0
+                  ${this.state.cart.length > 0
                     ? this.state.cart
                         .reduce((acc, val) => acc + val.price * val.amount, 0)
                         .toFixed(2)
@@ -146,7 +146,18 @@ export default class Cart extends Component {
               exact
               path="/shop/checkout"
               render={() => (
-                <Checkout {...this.props} items={this.state.cart} />
+                <Checkout
+                  {...this.props}
+                  items={this.state.cart}
+                  change={this.changeQuant}
+                  total={
+                    this.state.cart.length > 0
+                      ? this.state.cart
+                          .reduce((acc, val) => acc + val.price * val.amount, 0)
+                          .toFixed(2)
+                      : null
+                  }
+                />
               )}
             />
           </div>
