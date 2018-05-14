@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
-import EventNode from "./EventNode/EventNode.js";
+import EventNode from "../../Components/EventNode/EventNode.js";
 
 const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 class Events extends Component {

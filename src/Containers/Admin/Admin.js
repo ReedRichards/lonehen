@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink
+} from "reactstrap";
 import RichTextEditor from "../RichTextEditor/RichTextEditor.js";
 import classnames from "classnames";
 import LoneAPi from "../../loneApi.js";

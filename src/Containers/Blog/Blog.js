@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
-import BlogPosts from "./BlogPosts/BlogPosts.js";
+import BlogPosts from "../../Components/BlogPosts/BlogPosts.js";
 
 const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 class Blog extends Component {

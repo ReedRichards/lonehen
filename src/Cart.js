@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { Modal, ModalHeader, ModalFooter } from "reactstrap";
 import { Col, Button, Table } from "reactstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import Blog from "./Containers/Blog/Blog.js";
+import Events from "./Containers/Events/Events.js";
+import HomeNav from "./Containers/HomeNav/HomeNav.js";
+
 import HomePage from "./Containers/HomePage/HomePage.js";
-import Events from "./Components/Events/Events.js";
 import Shop from "./Containers/Shop/Shop.js";
 import ShopDetail from "./Containers/Shop/ShopDetail/ShopDetail.js";
 import EventsDetail from "./Components/Events/EventDetail/EventDetail.js";
-import HomeNav from "./Components/HomeNav/HomeNav.js";
 import MakersNotes from "./Components/MakersNotes/MakersNotes.js";
-import Blog from "./Components/Blog/Blog.js";
 import Checkout from "./Containers/Checkout/Checkout.js";
 
 export default class Cart extends Component {
