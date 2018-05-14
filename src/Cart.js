@@ -10,7 +10,7 @@ import HomeNav from "./Containers/HomeNav/HomeNav.js";
 import HomePage from "./Containers/HomePage/HomePage.js";
 import Shop from "./Containers/Shop/Shop.js";
 import ShopDetail from "./Containers/Shop/ShopDetail/ShopDetail.js";
-import EventsDetail from "./Components/Events/EventDetail/EventDetail.js";
+import EventsDetail from "./Components/EventDetail/EventDetail.js";
 import MakersNotes from "./Components/MakersNotes/MakersNotes.js";
 import Checkout from "./Containers/Checkout/Checkout.js";
 

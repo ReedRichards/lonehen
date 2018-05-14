@@ -11,7 +11,8 @@ class CheckoutForm extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      state: "TX"
+      state: "TX",
+      address2: null
     };
   }
 
@@ -22,13 +23,28 @@ class CheckoutForm extends React.Component {
   handleSubmit = ev => {
     // We don't want to let default form submission happen here, which would refresh the page.
     ev.preventDefault();
+    const message =
+      "Name: " +
+      this.state.firstName +
+      this.state.lastName +
+      "\n" +
+      "Email: " +
+      this.state.email +
+      "\n" +
+      "Address: " +
+      this.state.address1 +
+      "\n" +
+      "Address 2: " +
+      this.state.address2 +
+      "\n" +
+      "State: " +
+      this.state.state +
+      "\n";
 
-    console.log(this.state);
-    return 0;
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
     const token = this.props.stripe
-      .createToken({ name: "Jenny Rosen" })
+      .createToken({ name: this.state.firstName + " " + this.state.lastName })
       .then(({ token }) => {
         console.log(token);
         const payload = {
