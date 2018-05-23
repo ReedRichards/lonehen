@@ -9,6 +9,7 @@ const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       state: "TX",
@@ -24,52 +25,11 @@ class CheckoutForm extends React.Component {
     // We don't want to let default form submission happen here, which would refresh the page.
     ev.preventDefault();
 
-    // maps this.props.items out to the important info, and then concatenates
-    // the array so that its one array, rather than array containing a bunch
-    // of arrays, also adding string so that they can be added to message with a
-    // simple for loop
-    const flattenItems = [].concat.apply(
-      [],
-      this.props.items.map(i => {
-        return [
-          "Product: " + i.name + "\n",
-          "Price: " + i.price + "\n",
-          "Amount: " + i.amount + "\n"
-        ];
-      })
-    );
-    console.log(flattenItems);
-
-    let message =
-      "Name: " +
-      this.state.firstName +
-      this.state.lastName +
-      "\n" +
-      "Email: " +
-      this.state.email +
-      "\n" +
-      "Address: " +
-      this.state.address1 +
-      "\n" +
-      "Address 2: " +
-      this.state.address2 +
-      "\n" +
-      //state as in United States
-      "State: " +
-      this.state.state +
-      "\n";
-
-    for (let i in flattenItems) {
-      message += " " + flattenItems[i];
-    }
-    console.log(message);
-
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
     const token = this.props.stripe
       .createToken({ name: this.state.firstName + " " + this.state.lastName })
       .then(({ token }) => {
-        console.log(token);
         const payload = {
           total: 999,
           token: token.id
@@ -82,8 +42,47 @@ class CheckoutForm extends React.Component {
           }),
           body: JSON.stringify(payload)
         });
-      });
+        // maps this.props.items out to the important info, and then concatenates
+        // the array so that its one array, rather than array containing a bunch
+        // of arrays, also adding string so that they can be added to message
+        // with a simple for loop
+        // also this block has to be here for the form to work properly and
+        // should be a function
+        const flattenItems = [].concat.apply(
+          [],
+          this.props.items.map(i => {
+            return [
+              "Product: " + i.name + "\n",
+              "Price: " + i.price + "\n",
+              "Amount: " + i.amount + "\n"
+            ];
+          })
+        );
 
+        let message =
+          "Name: " +
+          this.state.firstName +
+          this.state.lastName +
+          "\n" +
+          "Email: " +
+          this.state.email +
+          "\n" +
+          "Address: " +
+          this.state.address1 +
+          "\n" +
+          "Address 2: " +
+          this.state.address2 +
+          "\n" +
+          //state as in United States
+          "State: " +
+          this.state.state +
+          "\n";
+
+        for (let i in flattenItems) {
+          message += " " + flattenItems[i];
+        }
+        console.log(message);
+      });
     // However, this line of code will do the same thing:
     // this.props.stripe.createToken({type: 'card', name: 'Jenny Rosen'});
   };
@@ -228,7 +227,10 @@ class CheckoutForm extends React.Component {
           <Row>
             <Col className="my-5">
               <Label>Credit Card Info</Label>
-              <CardElement style={{ base: { fontSize: "18px" } }} />
+              <CardElement
+                required="true"
+                style={{ base: { fontSize: "18px" } }}
+              />
             </Col>
           </Row>
           <Row>
