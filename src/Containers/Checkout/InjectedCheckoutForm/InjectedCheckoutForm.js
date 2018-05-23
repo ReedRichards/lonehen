@@ -32,16 +32,15 @@ class CheckoutForm extends React.Component {
       [],
       this.props.items.map(i => {
         return [
-          "Product: " + i.name,
-          "Price: " + i.price,
-          "Amount: " + i.amount
+          "Product: " + i.name + "\n",
+          "Price: " + i.price + "\n",
+          "Amount: " + i.amount + "\n"
         ];
       })
     );
     console.log(flattenItems);
-    return 0;
 
-    const message =
+    let message =
       "Name: " +
       this.state.firstName +
       this.state.lastName +
@@ -59,6 +58,11 @@ class CheckoutForm extends React.Component {
       "State: " +
       this.state.state +
       "\n";
+
+    for (let i in flattenItems) {
+      message += " " + flattenItems[i];
+    }
+    console.log(message);
 
     // Within the context of `Elements`, this call to createToken knows which Element to
     // tokenize, since there's only one in this group.
@@ -93,6 +97,7 @@ class CheckoutForm extends React.Component {
               <FormGroup>
                 <Label for="firstName">First Name</Label>
                 <Input
+                  required="true"
                   name="firstName"
                   id="firstName"
                   onChange={event => this.handleChange(event, "firstName")}
@@ -103,6 +108,7 @@ class CheckoutForm extends React.Component {
               <FormGroup>
                 <Label for="lastName">Last Name</Label>
                 <Input
+                  required="true"
                   onChange={event => this.handleChange(event, "lastName")}
                   name="lastName"
                   id="lastName"
@@ -114,6 +120,7 @@ class CheckoutForm extends React.Component {
           <FormGroup>
             <Label for="exampleEmail">Email</Label>
             <Input
+              required="true"
               onChange={event => this.handleChange(event, "email")}
               type="email"
               name="email"
@@ -124,6 +131,7 @@ class CheckoutForm extends React.Component {
           <FormGroup>
             <Label for="address1">Address Line 1</Label>
             <Input
+              required="true"
               name="address1"
               id="address1"
               onChange={event => this.handleChange(event, "address1")}
@@ -144,6 +152,7 @@ class CheckoutForm extends React.Component {
               <FormGroup>
                 <Label for="state">State</Label>
                 <Input
+                  required="true"
                   type="select"
                   name="state"
                   id="state"
@@ -208,6 +217,7 @@ class CheckoutForm extends React.Component {
               <FormGroup>
                 <Label for="zipCode">Zip</Label>
                 <Input
+                  required="true"
                   name="zipCode"
                   id="zipCode"
                   onChange={event => this.handleChange(event, "zip")}
