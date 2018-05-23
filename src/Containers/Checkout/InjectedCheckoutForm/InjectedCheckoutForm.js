@@ -23,6 +23,24 @@ class CheckoutForm extends React.Component {
   handleSubmit = ev => {
     // We don't want to let default form submission happen here, which would refresh the page.
     ev.preventDefault();
+
+    // maps this.props.items out to the important info, and then concatenates
+    // the array so that its one array, rather than array containing a bunch
+    // of arrays, also adding string so that they can be added to message with a
+    // simple for loop
+    const flattenItems = [].concat.apply(
+      [],
+      this.props.items.map(i => {
+        return [
+          "Product: " + i.name,
+          "Price: " + i.price,
+          "Amount: " + i.amount
+        ];
+      })
+    );
+    console.log(flattenItems);
+    return 0;
+
     const message =
       "Name: " +
       this.state.firstName +
@@ -37,6 +55,7 @@ class CheckoutForm extends React.Component {
       "Address 2: " +
       this.state.address2 +
       "\n" +
+      //state as in United States
       "State: " +
       this.state.state +
       "\n";

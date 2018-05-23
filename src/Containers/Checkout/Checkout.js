@@ -71,7 +71,10 @@ export default class Checkout extends Component {
         </Row>
         <Row>
           <Elements>
-            <InjectedCheckoutForm total={this.props.total} />
+            <InjectedCheckoutForm
+              items={this.props.items}
+              total={this.props.total}
+            />
           </Elements>
         </Row>
       </Container>
