@@ -145,6 +145,14 @@ class Admin extends Component {
         API.post(destination, this.state.token, payload);
         break;
 
+      case "makersnotes":
+        payload = {
+          item_title: this.state.makeTitle,
+          item_description: value,
+          wine_image: this.state.makeImage
+        };
+        API.post(destination, this.state.token, payload);
+        break;
       default:
         console.log("should never happen admin line 140");
     }
@@ -229,6 +237,18 @@ class Admin extends Component {
                     }}
                   >
                     + Shop Item
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "5"
+                    })}
+                    onClick={() => {
+                      this.toggle("5");
+                    }}
+                  >
+                    + Makers Notes
                   </NavLink>
                 </NavItem>
               </Nav>
@@ -405,6 +425,36 @@ class Admin extends Component {
                         quick={true}
                         post={this.quickAdd}
                         destination="shop"
+                      />
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="5">
+                  <Row>
+                    <Col>
+                      <div className="form-group">
+                        <label>Title:</label>
+                        <input
+                          className="form-control"
+                          value={this.state.makeTitle}
+                          onChange={event =>
+                            this.handleChange(event, "makeTitle")
+                          }
+                        />
+                        <label>Upoload an Image:</label>
+                        <input
+                          onChange={event =>
+                            this.fileChangedHandler(event, "makeImage")
+                          }
+                          className="form-control"
+                          type="file"
+                        />
+                      </div>
+
+                      <RichTextEditor
+                        quick={true}
+                        post={this.quickAdd}
+                        destination="makersnotes"
                       />
                     </Col>
                   </Row>
