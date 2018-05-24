@@ -11,7 +11,7 @@ import HomePage from "./Containers/HomePage/HomePage.js";
 import Shop from "./Containers/Shop/Shop.js";
 import ShopDetail from "./Containers/Shop/ShopDetail/ShopDetail.js";
 import EventsDetail from "./Containers/EventDetail/EventDetail.js";
-import MakersNotes from "./Components/MakersNotes/MakersNotes.js";
+import MakersNotes from "./Containers/MakersNotes/MakersNotes.js";
 import Checkout from "./Containers/Checkout/Checkout.js";
 
 export default class Cart extends Component {
