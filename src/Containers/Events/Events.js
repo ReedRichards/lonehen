@@ -33,6 +33,7 @@ class Events extends Component {
                 startTime={event.event_start_time}
                 endTime={event.event_end_time}
                 details={event.event_details}
+                event_id={event.id}
               />
             ))
             .reverse()}

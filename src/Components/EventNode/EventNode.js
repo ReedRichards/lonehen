@@ -1,5 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
+
 const EventNode = props => {
   return (
     <Container className="pad-60 serif">
@@ -23,7 +25,9 @@ const EventNode = props => {
           </div>
         </Col>
         <Col md="10">
-          <h2>{props.title}</h2>
+          <Link className="dark" to={"/events/" + props.event_id}>
+            <h2>{props.title}</h2>
+          </Link>
           <h4>
             {" "}
             {new Date(props.startDate).toLocaleString("en-us", {
