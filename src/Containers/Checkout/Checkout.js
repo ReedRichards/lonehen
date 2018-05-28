@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Elements } from "react-stripe-elements";
+import { Link } from "react-router-dom";
 
 import InjectedCheckoutForm from "./InjectedCheckoutForm/InjectedCheckoutForm.js";
 
@@ -21,7 +22,8 @@ export default class Checkout extends Component {
       this.setState({ total: total.toFixed(2) });
     }
   }
-  render() {
+
+  regularCheckout = () => {
     return (
       <Container>
         <Row>
@@ -78,6 +80,33 @@ export default class Checkout extends Component {
           </Elements>
         </Row>
       </Container>
+    );
+  };
+
+  noCartCheckout = () => {
+    return (
+      <Container>
+        <Row>
+          <Col md="12" className="text-center my-5">
+            <h1>You haven't added anything to your cart yet!</h1>
+
+            <h2>
+              Visit the <Link to="/shop">shop</Link> to add something to the
+              cart!
+            </h2>
+          </Col>
+        </Row>
+      </Container>
+    );
+  };
+
+  render() {
+    return (
+      <div>
+        {this.props.items.length > 0
+          ? this.regularCheckout()
+          : this.noCartCheckout()}
+      </div>
     );
   }
 }
