@@ -25,6 +25,7 @@ class Blog extends Component {
         {posts.map(post => (
           <BlogPosts
             key={post.id}
+            id={post.id}
             title={post.post_title}
             date={post.post_date}
             body={post.post_body}

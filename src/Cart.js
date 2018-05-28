@@ -4,6 +4,7 @@ import { Col, Button, Table } from "reactstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Blog from "./Containers/Blog/Blog.js";
+import BlogDetail from "./Containers/Blog/BlogDetail/BlogDetail.js";
 import Events from "./Containers/Events/Events.js";
 import HomeNav from "./Containers/HomeNav/HomeNav.js";
 
@@ -143,6 +144,7 @@ export default class Cart extends Component {
             />
             <Route exact path="/shop/:name/:id" component={ShopDetail} />
             <Route exact path="/makers-notes" component={MakersNotes} />
+            <Route exact path="/blog/:id" component={BlogDetail} />
             <Route exact path="/blog" component={Blog} />
             <Route
               exact
