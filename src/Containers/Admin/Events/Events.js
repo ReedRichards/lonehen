@@ -8,6 +8,12 @@ import LoneAPi from "../../../loneApi.js";
 const API = new LoneAPi();
 const baseAPIURL = "https://api.bvzzdesign.com/lonehen";
 
+// the beggining of figureing this out
+Date.prototype.toDateInputValue = function() {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 10);
+};
 export default class EventsAdmin extends PureComponent {
   constructor(props) {
     super(props);
@@ -151,7 +157,7 @@ export default class EventsAdmin extends PureComponent {
                   <Col sm="12" md="4" className="">
                     <label>Start Date:</label>
                     <input
-                      value={e.event_start_date}
+                      value={new Date(e.event_start_date).toDateInputValue()}
                       className="form-control"
                       onChange={event =>
                         this.handleChange(event, "eventStartDate")
