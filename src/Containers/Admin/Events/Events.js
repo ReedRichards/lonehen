@@ -182,7 +182,7 @@ export default class EventsAdmin extends PureComponent {
                   <Col sm="12" md="4" className="">
                     <label>End Date:</label>
                     <input
-                      value={e.event_end_date}
+                      value={e.event_end_date.toDateInputValue()}
                       className="form-control"
                       onChange={event =>
                         this.handleChange(event, "eventEndDate")
