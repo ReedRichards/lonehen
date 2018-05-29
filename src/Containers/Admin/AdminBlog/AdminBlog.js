@@ -150,7 +150,7 @@ export default class AdminBlog extends PureComponent {
       ));
     }
     return (
-      <Container>
+      <Container className="my-5">
         <Modal
           isOpen={this.state.modal}
           toggle={this.mtoggle}
@@ -172,31 +172,6 @@ export default class AdminBlog extends PureComponent {
             </Button>{" "}
           </ModalFooter>
         </Modal>
-        <Row>
-          <Col sm="12">
-            <h2>New Blog post</h2>
-            <div className="form-group">
-              <label>Title:</label>
-              <input
-                className="form-control"
-                value={this.state.blogTitle}
-                onChange={event => this.handleChange(event, "blogTitle")}
-              />
-              <label>Date:</label>
-              <input
-                value={this.state.blogDate}
-                className="form-control"
-                onChange={event => this.handleChange(event, "blogDate")}
-                type="date"
-              />
-            </div>
-            <RichTextEditor
-              post={this.quickAdd}
-              quick={true}
-              destination="blog"
-            />
-          </Col>
-        </Row>
         <Row>
           <h2>Edit blog posts</h2>
           {blog}

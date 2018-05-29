@@ -76,48 +76,14 @@ export default class Press extends PureComponent {
   quickAdd = (rawvalue, value, destination) => {
     let payload = {};
 
-    switch (destination) {
-      case "blog":
-        var event = new Date(this.state.blogDate);
-        const isoDate = event.toISOString();
-        payload = {
-          post_title: this.state.blogTitle,
-          post_body: value,
-          post_date: isoDate
-        };
-        API.post(destination, this.state.token, payload);
-        break;
-      case "press":
-        payload = {
-          press_image: this.state.pressImage,
-          press_descritption: value,
-          press_raw: rawvalue
-        };
-        console.log(this.state.reset);
-        this.setState({ reset: !this.state.reset });
-        console.log(this.state.reset);
-        API.post(destination, this.state.token, payload);
-        break;
-      case "event":
-        var eventStart = new Date(this.state.eventStartDate);
-        const isoStartDate = eventStart.toISOString();
-        var eventEnd = new Date(this.state.eventEndDate);
-        const isoEndDate = eventEnd.toISOString();
-
-        payload = {
-          event_title: this.state.eventTitle,
-          event_start_date: isoStartDate,
-          event_start_time: this.state.eventStartTime,
-          event_end_date: isoEndDate,
-          event_end_time: this.state.eventEndTime,
-          event_raw: rawvalue,
-          event_details: value
-        };
-        API.post(destination, this.state.token, payload);
-        break;
-      default:
-        console.log("should never happen admin even line 104");
-    }
+    payload = {
+      press_image: this.state.pressImage,
+      press_descritption: value,
+      press_raw: rawvalue
+    };
+    console.log(this.state.reset);
+    this.setState({ reset: !this.state.reset });
+    API.put(destination, this.state.token, payload);
     this.ptoggle();
   };
 
