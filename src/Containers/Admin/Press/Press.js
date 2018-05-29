@@ -23,12 +23,11 @@ export default class Press extends PureComponent {
     this.deltoggle = this.deltoggle.bind(this);
     this.fileChangedHandler = this.fileChangedHandler.bind(this);
   }
-  fileChangedHandler(event) {
+  fileChangedHandler(event, stName) {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      console.log(reader.result);
-      this.setState({ pressImage: reader.result });
+      this.setState({ [stName]: reader.result });
     };
     reader.readAsDataURL(file);
   }
@@ -75,12 +74,11 @@ export default class Press extends PureComponent {
   }
   quickAdd = (rawvalue, value, destination) => {
     let payload = {};
-
-    payload = {
-      press_descritption: value,
-      press_raw: rawvalue
-    };
-    console.log(this.state.reset);
+    if (this.state[destination]) {
+      payload.press_image = this.state[destination];
+    }
+    payload.press_descritption = value;
+    payload.press_raw = rawvalue;
     this.setState({ reset: !this.state.reset });
     API.patch(destination, this.state.token, payload);
     this.ptoggle();
@@ -91,6 +89,17 @@ export default class Press extends PureComponent {
     if (this.state.press) {
       press = this.state.press.map(p => (
         <Col sm="12" className="p-5">
+          <div className="form-group">
+            <label>Upoload an Image:</label>
+            <input
+              onChange={event =>
+                this.fileChangedHandler(event, "press/" + p.id)
+              }
+              className="form-control"
+              type="file"
+            />
+          </div>
+
           <Col
             sm={{ size: 6, offset: 3 }}
             className="d-flex press-image  justify-content-center mb-5"
