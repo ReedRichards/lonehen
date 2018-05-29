@@ -77,13 +77,12 @@ export default class Press extends PureComponent {
     let payload = {};
 
     payload = {
-      press_image: this.state.pressImage,
       press_descritption: value,
       press_raw: rawvalue
     };
     console.log(this.state.reset);
     this.setState({ reset: !this.state.reset });
-    API.put(destination, this.state.token, payload);
+    API.patch(destination, this.state.token, payload);
     this.ptoggle();
   };
 
