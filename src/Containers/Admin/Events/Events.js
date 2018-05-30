@@ -33,15 +33,6 @@ export default class EventsAdmin extends PureComponent {
       idnum: id
     });
   }
-  deltoggle() {
-    API.delete(this.state.destination, this.state.token);
-    this.mtoggle();
-    let newevents = [...this.state.events];
-    let index = this.state.events.findIndex(e => e.id === this.state.idnum);
-    newevents.splice(index, 1);
-    console.log(newevents === this.state.events);
-    this.setState({ events: newevents });
-  }
   componentWillMount() {
     const cookie = this.getCookie("token");
     if (cookie) {
@@ -63,54 +54,48 @@ export default class EventsAdmin extends PureComponent {
       .then(data => this.setState({ events: data }));
   }
   quickAdd = (rawvalue, value, destination) => {
+    //find the correct event
     let payload = {};
 
-    switch (destination) {
-      case "blog":
-        var event = new Date(this.state.blogDate);
-        const isoDate = event.toISOString();
-        payload = {
-          post_title: this.state.blogTitle,
-          post_body: value,
-          post_date: isoDate
-        };
-        API.post(destination, this.state.token, payload);
-        break;
-      case "press":
-        payload = {
-          press_image: this.state.pressImage,
-          press_descritption: value,
-          press_raw: rawvalue
-        };
-        API.post(destination, this.state.token, payload);
-        break;
-      case "event":
-        var eventStart = new Date(this.state.eventStartDate);
-        const isoStartDate = eventStart.toISOString();
-        var eventEnd = new Date(this.state.eventEndDate);
-        const isoEndDate = eventEnd.toISOString();
+    var afterSlash = destination.substr(destination.indexOf("/") + 1);
+    let newevents = [...this.state.events];
+    //weakly typed to the rescue, == is intentional
+    let index = this.state.events.findIndex(i => i.id == afterSlash);
+    console.log(newevents[index]);
 
-        payload = {
-          event_title: this.state.eventTitle,
-          event_start_date: isoStartDate,
-          event_start_time: this.state.eventStartTime,
-          event_end_date: isoEndDate,
-          event_end_time: this.state.eventEndTime,
-          event_raw: rawvalue,
-          event_details: value
-        };
-        API.post(destination, this.state.token, payload);
-        break;
-      default:
-        console.log("should never happen admin even line 104");
-    }
-    //sets state to re render component
-    fetch(baseAPIURL + "/event/")
-      .then(response => response.json())
-      .then(data => this.setState({ events: data }));
+    //prepares dates for proper api format
+    var eventStart = new Date(newevents[index].event_start_date);
+    const isoStartDate = eventStart.toISOString();
+    var eventEnd = new Date(newevents[index].event_end_date);
+    const isoEndDate = eventEnd.toISOString();
+    newevents[index].event_start_date = isoStartDate;
+    newevents[index].event_end_date = isoEndDate;
+
+    // payload = {
+    //   event_title: this.state.eventTitle,
+    //   event_start_date: isoStartDate,
+    //   event_start_time: this.state.eventStartTime,
+    //   event_end_date: isoEndDate,
+    //   event_end_time: this.state.eventEndTime,
+    //   event_raw: rawvalue,
+    //   event_details: value
+    // };
+    API.patch(destination, this.state.token, newevents[index]);
   };
-  handleChange(event, key) {
-    this.setState({ [key]: event.target.value });
+  deltoggle() {
+    API.delete(this.state.destination, this.state.token);
+    this.mtoggle();
+    let newevents = [...this.state.events];
+    let index = this.state.events.findIndex(e => e.id === this.state.idnum);
+    newevents.splice(index, 1);
+    console.log(newevents === this.state.events);
+    this.setState({ events: newevents });
+  }
+  handleChange(event, key, e) {
+    let newevents = [...this.state.events];
+    let index = this.state.events.findIndex(i => i === e);
+    newevents[index][key] = event.target.value;
+    this.setState({ events: newevents });
   }
 
   render() {
@@ -150,7 +135,9 @@ export default class EventsAdmin extends PureComponent {
                   <input
                     value={e.event_title}
                     className="form-control"
-                    onChange={event => this.handleChange(event, "eventTitle")}
+                    onChange={event =>
+                      this.handleChange(event, "event_title", e)
+                    }
                   />
                 </Col>
                 <Row className="ml-0 mr-0">
@@ -160,7 +147,7 @@ export default class EventsAdmin extends PureComponent {
                       value={new Date(e.event_start_date).toDateInputValue()}
                       className="form-control"
                       onChange={event =>
-                        this.handleChange(event, "eventStartDate")
+                        this.handleChange(event, "event_start_date", e)
                       }
                       type="date"
                     />
@@ -173,7 +160,7 @@ export default class EventsAdmin extends PureComponent {
                       placeholder="10:00 am"
                       className="form-control"
                       onChange={event =>
-                        this.handleChange(event, "eventStartTime")
+                        this.handleChange(event, "event_start_time", e)
                       }
                     />
                   </Col>
@@ -182,10 +169,10 @@ export default class EventsAdmin extends PureComponent {
                   <Col sm="12" md="4" className="">
                     <label>End Date:</label>
                     <input
-                      value={e.event_end_date.toDateInputValue()}
+                      value={new Date(e.event_end_date).toDateInputValue()}
                       className="form-control"
                       onChange={event =>
-                        this.handleChange(event, "eventEndDate")
+                        this.handleChange(event, "event_end_date", e)
                       }
                       type="date"
                     />
@@ -196,7 +183,7 @@ export default class EventsAdmin extends PureComponent {
                       value={e.event_end_time}
                       className="form-control"
                       onChange={event =>
-                        this.handleChange(event, "eventEndTime")
+                        this.handleChange(event, "event_end_time", e)
                       }
                       placeholder="4:00 pm"
                     />
