@@ -77,9 +77,6 @@ export default class AdminBlog extends PureComponent {
       .then(response => response.json())
       .then(data => this.setState({ blog: data }));
   };
-  handleChange(event, key) {
-    this.setState({ [key]: event.target.value });
-  }
   deltoggle() {
     API.delete(this.state.destination, this.state.token);
     this.mtoggle();
@@ -118,6 +115,9 @@ export default class AdminBlog extends PureComponent {
       .then(data => this.setState({ blog: data }));
   }
 
+  handleChange(event, key) {
+    this.setState({ [key]: event.target.value });
+  }
   render() {
     let blog = null;
     if (this.state.blog) {
@@ -128,13 +128,13 @@ export default class AdminBlog extends PureComponent {
             <input
               className="form-control"
               value={b.post_title}
-              onChange={event => this.handleChange(event, "blogTitle")}
+              onChange={event => this.handleChange(event, "post_title", b)}
             />
             <label>Date:</label>
             <input
               className="form-control"
               value={b.post_date}
-              onChange={event => this.handleChange(event, "blogDate")}
+              onChange={event => this.handleChange(event, "post_date", b)}
               type="date"
             />
           </div>
