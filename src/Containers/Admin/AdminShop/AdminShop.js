@@ -47,9 +47,6 @@ export default class AdminShop extends PureComponent {
     };
     reader.readAsDataURL(file);
   }
-  handleChange(event, key) {
-    this.setState({ [key]: event.target.value });
-  }
   componentWillMount() {
     const cookie = this.getCookie("token");
     if (cookie) {
@@ -71,6 +68,19 @@ export default class AdminShop extends PureComponent {
       .then(data => this.setState({ store: data }));
   }
 
+  handleChange(event, key, e) {
+    let newevents = [...this.state.store];
+    let index = this.state.store.findIndex(i => i === e);
+    newevents[index][key] = event.target.value;
+    this.setState({ store: newevents });
+  }
+  quickAdd = (rawvalue, value, destination) => {
+    let payload = {};
+    var afterSlash = destination.substr(destination.indexOf("/") + 1);
+    let newevents = [...this.state.store];
+    //weakly typed to the rescue, == is intentional
+    let index = this.state.store.findIndex(i => i.id == afterSlash);
+  };
   render() {
     let store = null;
     if (this.state.store) {
@@ -81,7 +91,7 @@ export default class AdminShop extends PureComponent {
             <input
               className="form-control"
               value={s.name}
-              onChange={event => this.handleChange(event, "shopName")}
+              onChange={event => this.handleChange(event, "name", s)}
             />
           </Col>
           <Col sm="12" md="6">
@@ -90,7 +100,7 @@ export default class AdminShop extends PureComponent {
             {/* TODO  add proper alts*/}
             <input
               alt="shop"
-              onChange={event => this.fileChangedHandler(event, "shopImage")}
+              onChange={event => this.fileChangedHandler(event, "image")}
               className="form-control"
               type="file"
             />
@@ -100,7 +110,7 @@ export default class AdminShop extends PureComponent {
             <input
               className="form-control"
               value={s.quantity}
-              onChange={event => this.handleChange(event, "shopQuantity")}
+              onChange={event => this.handleChange(event, "quantity", s)}
               type="number"
             />
           </Col>
@@ -108,7 +118,7 @@ export default class AdminShop extends PureComponent {
             <label>Price:</label>
             <input
               className="form-control"
-              onChange={event => this.handleChange(event, "shopPrice")}
+              onChange={event => this.handleChange(event, "price", s)}
               type="number"
               value={s.price}
               min="0.01"
@@ -121,7 +131,7 @@ export default class AdminShop extends PureComponent {
             <input
               value={s.category}
               className="form-control"
-              onChange={event => this.handleChange(event, "shopCategory")}
+              onChange={event => this.handleChange(event, "category", s)}
             />
           </Col>
 
