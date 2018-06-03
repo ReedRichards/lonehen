@@ -38,12 +38,12 @@ export default class AdminShop extends PureComponent {
     this.setState({ store: newevents });
   }
 
-  fileChangedHandler(event) {
+  fileChangedHandler(event, stName) {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
       console.log(reader.result);
-      this.setState({ pressImage: reader.result });
+      this.setState({ [stName]: reader.result });
     };
     reader.readAsDataURL(file);
   }
@@ -80,6 +80,14 @@ export default class AdminShop extends PureComponent {
     let newevents = [...this.state.store];
     //weakly typed to the rescue, == is intentional
     let index = this.state.store.findIndex(i => i.id == afterSlash);
+
+    if (this.state[destination]) {
+      newevents[index].image = this.state[destination];
+    }
+
+    API.patch(destination, this.state.token, newevents[index]);
+    // need a function so setstate like this
+    // this.setState({store[index] :newevents[index]})
   };
   render() {
     let store = null;
@@ -100,7 +108,7 @@ export default class AdminShop extends PureComponent {
             {/* TODO  add proper alts*/}
             <input
               alt="shop"
-              onChange={event => this.fileChangedHandler(event, "image")}
+              onChange={event => this.fileChangedHandler(event, "shop/" + s.id)}
               className="form-control"
               type="file"
             />
