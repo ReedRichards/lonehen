@@ -77,17 +77,17 @@ export default class AdminShop extends PureComponent {
   quickAdd = (rawvalue, value, destination) => {
     let payload = {};
     var afterSlash = destination.substr(destination.indexOf("/") + 1);
-    let newevents = [...this.state.store];
+    let store = [...this.state.store];
     //weakly typed to the rescue, == is intentional
     let index = this.state.store.findIndex(i => i.id == afterSlash);
 
     if (this.state[destination]) {
-      newevents[index].image = this.state[destination];
+      store[index].image = this.state[destination];
     }
 
-    API.patch(destination, this.state.token, newevents[index]);
+    API.patch(destination, this.state.token, store[index]);
     // need a function so setstate like this
-    // this.setState({store[index] :newevents[index]})
+    this.setState({ store });
   };
   render() {
     let store = null;
